@@ -1,266 +1,39 @@
-v<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Golazo TV</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-<header>
-  <h1>Golazo TV</h1>
-  <p>Eventos deportivos en vivo</p>
-</header>
-
-<nav class="calendar-menu">
-  <h2 id="calendarDay">CALENDARIO DIA: </h2>
-  <div id="matchesContainer" class="matches-container">
-    <!-- Tarjetas de partidos se llenarán con JS -->
-  </div>
-</nav>
-
-<!-- Modal fullscreen -->
-<div id="modalPlayer" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="cerrarModal()">&times;</span>
-    <div class="video-container" id="playerContainer">
-      <!-- Iframe se carga aquí -->
-    </div>
-    <div class="server-buttons">
-      <button onclick="cambiarServidor(1)">Server 1</button>
-      <button onclick="cambiarServidor(2)">Server 2</button>
-    </div>
-  </div>
-</div>
-
-<script>
-// API Key de API-Sports
-const apiKey = '9a8b265eedb4aca5e0da01e3169859f5';
-const today = new Date().toISOString().split('T')[0];
-document.getElementById('calendarDay').innerText = `CALENDARIO DIA: ${today}`;
-
-// Lista de partidos (inicialmente vacía, luego se llenará con la API)
-let partidos = [];
-
-// Función para cargar partidos desde API-Sports (solo fútbol como ejemplo)
-async function cargarPartidos() {
-  try {
-    const response = await fetch(`https://v3.football.api-sports.io/fixtures?date=${today}`, {
-      headers: { 'x-apisports-key': apiKey }
-    });
-    const data = await response.json();
-    
-    // Mapear la respuesta a nuestro formato de "partidos"
-    partidos = data.response.map(p => ({
-      league: p.league.name,
-      home: p.teams.home.name,
-      away: p.teams.away.name,
-      time: new Date(p.fixture.date).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
-      servers: {
-        1: 'https://topembed.pw/channel/ESPN%5BArgentina%5D',
-        2: 'https://embedsports.top/embed/bravo/1755966600000-arsenal-leeds-spanish-/2' // temporal
-      }
-    }));
-
-    mostrarPartidos();
-  } catch (err) {
-    console.error('Error cargando partidos:', err);
-    // Si falla la API, se pueden poner partidos de ejemplo
-  }
-}
-
-// Mostrar partidos en tarjetas
-function mostrarPartidos() {
-  const container = document.getElementById('matchesContainer');
-  container.innerHTML = '';
-  partidos.forEach((p, index) => {
-    const card = document.createElement('div');
-    card.classList.add('match-card');
-    card.innerHTML = `
-      <div class="match-info">
-        <span class="league">${p.league}</span><br>
-        <span class="teams">${p.home} vs ${p.away}</span><br>
-        <span class="match-time">${p.time}</span><br>
-        <button onclick="abrirModal(${index},1)">Mirar</button>
-      </div>
-    `;
-    container.appendChild(card);
-  });
-}
-
-// Modal y servidores
-let currentMatchIndex = 0;
-let currentServer = 1;
-
-function abrirModal(matchIndex, server=1) {
-  currentMatchIndex = matchIndex;
-  currentServer = server;
-  cargarServidor();
-  document.getElementById('modalPlayer').style.display = 'flex';
-}
-
-function cargarServidor() {
-  const playerContainer = document.getElementById('playerContainer');
-  const match = partidos[currentMatchIndex];
-  playerContainer.innerHTML = ''; // limpiar
-  const iframe = document.createElement('iframe');
-  iframe.src = match.servers[currentServer];
-  iframe.width = "100%";
-  iframe.height = "100%";
-  iframe.frameBorder = "0";
-  iframe.allowFullscreen = true;
-  iframe.allow = "encrypted-media; picture-in-picture";
-  iframe.scrolling = "no";
-  playerContainer.appendChild(iframe);
-}
-
-function cambiarServidor(server) {
-  currentServer = server;
-  cargarServidor();
-}
-
-function cerrarModal() {
-  document.getElementById('modalPlayer').style.display = 'none';
-  document.getElementById('playerContainer').innerHTML = '';
-}
-
-// Cargar partidos al iniciar
-cargarPartidos();
-</script>
-
-</body>
-</html>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Golazo TV</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Golazo TV</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-  <h1>Golazo TV</h1>
-  <p>Eventos deportivos en vivo</p>
-</header>
+  <header>
+    <h1>Golazo TV</h1>
+    <p>Eventos deportivos en vivo</p>
+  </header>
 
-<nav class="calendar-menu">
-  <h2 id="calendarDay">CALENDARIO DIA: </h2>
-  <div id="matchesContainer" class="matches-container">
-    <!-- Tarjetas de partidos se llenarán con JS -->
-  </div>
-</nav>
-
-<!-- Modal fullscreen -->
-<div id="modalPlayer" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="cerrarModal()">&times;</span>
-    <div class="video-container" id="playerContainer">
-      <!-- Iframe se carga aquí -->
+  <nav class="calendar-menu">
+    <h2 id="calendarDay">CALENDARIO DIA: </h2>
+    <div id="matchesContainer" class="matches-container">
+      <!-- Tarjetas de partidos se llenarán con JS -->
     </div>
-    <div class="server-buttons">
-      <button onclick="cambiarServidor(1)">Server 1</button>
-      <button onclick="cambiarServidor(2)">Server 2</button>
-    </div>
-  </div>
-</div>
+  </nav>
 
-<script>
-// API Key de API-Sports
-const apiKey = '9a8b265eedb4aca5e0da01e3169859f5';
-const today = new Date().toISOString().split('T')[0];
-document.getElementById('calendarDay').innerText = `CALENDARIO DIA: ${today}`;
-
-// Lista de partidos (inicialmente vacía, luego se llenará con la API)
-let partidos = [];
-
-// Función para cargar partidos desde API-Sports (solo fútbol como ejemplo)
-async function cargarPartidos() {
-  try {
-    const response = await fetch(`https://v3.football.api-sports.io/fixtures?date=${today}`, {
-      headers: { 'x-apisports-key': apiKey }
-    });
-    const data = await response.json();
-    
-    // Mapear la respuesta a nuestro formato de "partidos"
-    partidos = data.response.map(p => ({
-      league: p.league.name,
-      home: p.teams.home.name,
-      away: p.teams.away.name,
-      time: new Date(p.fixture.date).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
-      servers: {
-        1: 'https://topembed.pw/channel/ESPN%5BArgentina%5D',
-        2: 'https://embedsports.top/embed/bravo/1755966600000-arsenal-leeds-spanish-/2' // temporal
-      }
-    }));
-
-    mostrarPartidos();
-  } catch (err) {
-    console.error('Error cargando partidos:', err);
-    // Si falla la API, se pueden poner partidos de ejemplo
-  }
-}
-
-// Mostrar partidos en tarjetas
-function mostrarPartidos() {
-  const container = document.getElementById('matchesContainer');
-  container.innerHTML = '';
-  partidos.forEach((p, index) => {
-    const card = document.createElement('div');
-    card.classList.add('match-card');
-    card.innerHTML = `
-      <div class="match-info">
-        <span class="league">${p.league}</span><br>
-        <span class="teams">${p.home} vs ${p.away}</span><br>
-        <span class="match-time">${p.time}</span><br>
-        <button onclick="abrirModal(${index},1)">Mirar</button>
+  <!-- Modal fullscreen -->
+  <div id="modalPlayer" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <div class="video-container" id="playerContainer">
+        <!-- Iframe se carga aquí -->
       </div>
-    `;
-    container.appendChild(card);
-  });
-}
+      <div class="server-buttons">
+        <button onclick="cambiarServidor(1)">Server 1</button>
+        <button onclick="cambiarServidor(2)">Server 2</button>
+      </div>
+    </div>
+  </div>
 
-// Modal y servidores
-let currentMatchIndex = 0;
-let currentServer = 1;
-
-function abrirModal(matchIndex, server=1) {
-  currentMatchIndex = matchIndex;
-  currentServer = server;
-  cargarServidor();
-  document.getElementById('modalPlayer').style.display = 'flex';
-}
-
-function cargarServidor() {
-  const playerContainer = document.getElementById('playerContainer');
-  const match = partidos[currentMatchIndex];
-  playerContainer.innerHTML = ''; // limpiar
-  const iframe = document.createElement('iframe');
-  iframe.src = match.servers[currentServer];
-  iframe.width = "100%";
-  iframe.height = "100%";
-  iframe.frameBorder = "0";
-  iframe.allowFullscreen = true;
-  iframe.allow = "encrypted-media; picture-in-picture";
-  iframe.scrolling = "no";
-  playerContainer.appendChild(iframe);
-}
-
-function cambiarServidor(server) {
-  currentServer = server;
-  cargarServidor();
-}
-
-function cerrarModal() {
-  document.getElementById('modalPlayer').style.display = 'none';
-  document.getElementById('playerContainer').innerHTML = '';
-}
-
-// Cargar partidos al iniciar
-cargarPartidos();
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
