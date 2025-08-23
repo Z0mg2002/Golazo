@@ -1,39 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Golazo TV</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golazo TV - AC Milan</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header>
-    <h1>Golazo TV</h1>
-    <p>Eventos deportivos en vivo</p>
-  </header>
+<header>
+  <h1>Golazo TV</h1>
+  <p>Evento deportivo en vivo</p>
+</header>
 
-  <nav class="calendar-menu">
-    <h2 id="calendarDay">CALENDARIO DIA: </h2>
-    <div id="matchesContainer" class="matches-container">
-      <!-- Tarjetas de partidos se llenarán con JS -->
-    </div>
-  </nav>
+<main>
+  <div id="matchesContainer" class="matches-container">
+    <!-- Tarjeta del AC Milan se llenará con JS -->
+  </div>
+</main>
 
-  <!-- Modal fullscreen -->
-  <div id="modalPlayer" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarModal()">&times;</span>
-      <div class="video-container" id="playerContainer">
-        <!-- Iframe se carga aquí -->
-      </div>
-      <div class="server-buttons">
-        <button onclick="cambiarServidor(1)">Server 1</button>
-        <button onclick="cambiarServidor(2)">Server 2</button>
-      </div>
+<!-- Modal fullscreen -->
+<div id="modalPlayer" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <div class="video-container" id="playerContainer">
+      <!-- Iframe se carga aquí -->
     </div>
   </div>
+</div>
 
-  <script src="script.js"></script>
+<script>
+const apiKey = '9a8b265eedb4aca5e0da01e3169859f5';
+const server1 = "https://la14hd.com/vivo/canales.php?stream=espn4";
+
+// Función para traer el partido de AC Milan del día
+async function cargarPartidoACMilan() {
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const response = await fetch(`https://v3.football.api-sports.io/fixtures?team=109&date=${today}`, { // 109 = AC Milan
+      headers: { 'x-apisports-key': apiKey }
+    });
+    const data = await response.json();
+
+    if (data.response.length === 0) {
+      document.getElementById('matchesContainer').innerHTML = '<p>No hay partidos hoy.</p>';
+      return;
+    }
+
+    const partido = data.response[0]; // Tomamos el primer partido del día
+    const home = partido.teams.home.name;
+    const away = partido.teams.away.name;
+    const league = partido.league.name;
+    
+    // Convertir horario a hora Argentina
+    const fechaUTC = new Date(partido.fixture.date);
+    const fechaArg = fechaUTC.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+
+    const container = document.getElementById('matchesContainer');
+    container.innerHTML = `
+      <div class="match-card">
+        <div class="match-info">
+          <h2>${home} vs ${away}</h2>
+          <p class="league">${league}</p>
+          <p class="match-time">Hoy ${fechaArg}</p>
+          <button onclick="abrirModal()">Mirar</button>
+        </div>
+      </div>
+    `;
+  } catch (err) {
+    console.error('Error cargando partido:', err);
+    document.getElementById('matchesContainer').innerHTML = '<p>Error cargando partido.</p>';
+  }
+}
+
+function abrirModal() {
+  const playerContainer = document.getElementById('playerContainer');
+  playerContainer.innerHTML = ''; // limpiar
+  const iframe = document.createElement('iframe');
+  iframe.src = server1;
+  iframe.width = "100%";
+  iframe.height = "100%";
+  iframe.frameBorder = "0";
+  iframe.allowFullscreen = true;
+  iframe.allow = "encrypted-media; picture-in-picture";
+  iframe.scrolling = "no";
+  playerContainer.appendChild(iframe);
+  document.getElementById('modalPlayer').style.display = 'flex';
+}
+
+function cerrarModal() {
+  document.getElementById('modalPlayer').style.display = 'none';
+  document.getElementById('playerContainer').innerHTML = '';
+}
+
+cargarPartidoACMilan();
+</script>
+
 </body>
 </html>
