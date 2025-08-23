@@ -1,19 +1,17 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #1a1a1a; /* fondo general oscuro */
+    background-color: #1a1a1a;
     color: #e0e0e0;
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #333; /* gris para menú */
-    color: #e0e0e0;
+    background-color: #555; /* gris más suave para el menú */
+    color: #fff;
     text-align: center;
     padding: 20px 0;
 }
-
-header h1 { margin: 0; }
 
 main { padding: 20px; }
 
@@ -24,7 +22,7 @@ h2 { color: #00aaff; margin-bottom: 10px; }
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #2b2b2b; /* gris más oscuro */
+    background-color: #2b2b2b;
 }
 
 th, td {
@@ -33,12 +31,12 @@ th, td {
     border-bottom: 1px solid #444;
 }
 
-th { background-color: #555; color: #fff; }
+th { background-color: #333; color: #fff; }
 
 tr:hover { background-color: #3a3a3a; }
 
 button {
-    background-color: #00aaff; /* azul */
+    background-color: #00aaff;
     color: white;
     border: none;
     padding: 8px 15px;
@@ -51,42 +49,50 @@ button:hover { background-color: #0088cc; }
 footer {
     text-align: center;
     padding: 15px;
-    background-color: #333;
-    color: #e0e0e0;
+    background-color: #555;
+    color: #fff;
 }
 
-/* Modal del reproductor */
-.modal {
+/* Modal Fullscreen Player */
+.player-modal {
     display: none;
     position: fixed;
     z-index: 1000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.8);
+    top:0; left:0;
+    width:100%; height:100%;
+    background-color: rgba(0,0,0,0.95);
     justify-content: center;
     align-items: center;
 }
 
-.modal-content {
+.player-container {
     position: relative;
-    width: 90%;
-    max-width: 800px;
-    height: 450px;
+    width: 95%;
+    max-width: 1200px;
+    height: 85%;
     background-color: #000;
     border-radius: 10px;
     overflow: hidden;
 }
 
-.modal-content iframe {
+.player-container iframe {
     width: 100%;
     height: 100%;
 }
 
-.close {
+.player-controls {
     position: absolute;
-    top: 8px; right: 12px;
-    font-size: 28px;
-    color: #fff;
-    cursor: pointer;
-    z-index: 10;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
 }
+
+.player-controls button {
+    background-color: #00aaff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.player-controls button:hover { background-color: #0088cc; }
