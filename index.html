@@ -15,15 +15,12 @@
 
 <main>
   <section>
-    <h2>Fútbol</h2>
+    <h2>Canales</h2>
     <table>
-      <tr><th>Fecha</th><th>Partido</th><th>Ver</th></tr>
+      <tr><th>Canal</th><th>Ver</th></tr>
       <tr>
-        <td>Arsenal vs Leeds</td>
-        <td>Streaming HLS</td>
-        <td>
-          <button onclick="abrirPlayer('https://rr.strmd.top/.../playlist.m3u8')">Mirar</button>
-        </td>
+        <td>ESPN [Argentina]</td>
+        <td><button onclick="abrirModal('https://topembed.pw/channel/ESPN%5BArgentina%5D')">Mirar</button></td>
       </tr>
     </table>
   </section>
@@ -33,42 +30,26 @@
   <p>Sin fines de lucro</p>
 </footer>
 
-<div id="playerModal" class="player-modal">
-  <div class="player-container">
-    <video id="hlsPlayer" controls></video>
-    <div class="player-controls">
-      <button onclick="cerrarPlayer()">✖ Cerrar</button>
-    </div>
+<!-- Modal -->
+<div id="modalPlayer" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <iframe id="playerFrame" src="" frameborder="0" allowfullscreen allow="encrypted-media; picture-in-picture"></iframe>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-function abrirPlayer(url) {
-  const modal = document.getElementById('playerModal');
-  const video = document.getElementById('hlsPlayer');
-
-  if (Hls.isSupported()) {
-    const hls = new Hls();
-    hls.loadSource(url);
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = url;
-    video.addEventListener('loadedmetadata', () => video.play());
-  } else {
-    alert('Tu navegador no soporta HLS');
-    return;
-  }
-
+function abrirModal(url) {
+  const modal = document.getElementById('modalPlayer');
+  const iframe = document.getElementById('playerFrame');
+  iframe.src = url;
   modal.style.display = 'flex';
 }
 
-function cerrarPlayer() {
-  const modal = document.getElementById('playerModal');
-  const video = document.getElementById('hlsPlayer');
-  video.pause();
-  video.src = '';
+function cerrarModal() {
+  const modal = document.getElementById('modalPlayer');
+  const iframe = document.getElementById('playerFrame');
+  iframe.src = "";
   modal.style.display = 'none';
 }
 </script>
