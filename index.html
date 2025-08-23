@@ -9,20 +9,33 @@
 <body>
 
 <header>
-  <h1>Golazo TV</h1>
-  <p>Eventos deportivos en vivo</p>
+  <div class="logo-header">
+    <img src="logos/golazo-logo.png" alt="Golazo TV" class="logo">
+    <h1>Golazo TV</h1>
+  </div>
+  <p>Tu sitio de eventos deportivos en vivo</p>
 </header>
 
 <main>
-  <section>
-    <h2>Canales</h2>
-    <table>
-      <tr><th>Canal</th><th>Ver</th></tr>
-      <tr>
-        <td>ESPN [Argentina]</td>
-        <td><button onclick="abrirModal('https://topembed.pw/channel/ESPN%5BArgentina%5D')">Mirar</button></td>
-      </tr>
-    </table>
+  <section class="schedule">
+    <h2>Schedule Semanal</h2>
+
+    <div class="day">
+      <h3>Lunes 25/08/2025</h3>
+
+      <div class="match-card">
+        <img src="logos/premier-league.png" class="league-logo">
+        <div class="match-info">
+          <span class="teams">Arsenal vs Leeds United</span>
+          <span class="match-time">Inicio: 15:00 AR</span>
+          <div class="servers">
+            <button onclick="abrirModalServer(1)">Server 1</button>
+            <button onclick="abrirModalServer(2)">Server 2</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </section>
 </main>
 
@@ -34,22 +47,40 @@
 <div id="modalPlayer" class="modal">
   <div class="modal-content">
     <span class="close" onclick="cerrarModal()">&times;</span>
-    <iframe id="playerFrame" src="" frameborder="0" allowfullscreen allow="encrypted-media; picture-in-picture"></iframe>
+    <div id="playerContainer">
+      <!-- Aquí se cargará el iframe según servidor -->
+    </div>
   </div>
 </div>
 
 <script>
-function abrirModal(url) {
+const servers = {
+  1: 'https://topembed.pw/channel/ESPN%5BArgentina%5D', // Server 1 original
+  2: 'https://embedsports.top/embed/bravo/1755966600000-arsenal-leeds-spanish-/2' // Server 2
+};
+
+function abrirModalServer(serverNumber) {
   const modal = document.getElementById('modalPlayer');
-  const iframe = document.getElementById('playerFrame');
-  iframe.src = url;
+  const container = document.getElementById('playerContainer');
+  container.innerHTML = ''; // Limpiar modal previo
+
+  const iframe = document.createElement('iframe');
+  iframe.src = servers[serverNumber];
+  iframe.width = "100%";
+  iframe.height = "100%";
+  iframe.frameBorder = "0";
+  iframe.allowFullscreen = true;
+  iframe.allow = "encrypted-media; picture-in-picture";
+  iframe.scrolling = "no";
+
+  container.appendChild(iframe);
   modal.style.display = 'flex';
 }
 
 function cerrarModal() {
   const modal = document.getElementById('modalPlayer');
-  const iframe = document.getElementById('playerFrame');
-  iframe.src = "";
+  const container = document.getElementById('playerContainer');
+  container.innerHTML = ''; // Limpiar iframe
   modal.style.display = 'none';
 }
 </script>
