@@ -22,6 +22,16 @@ header {
   justify-content: center;
   margin-top: 10px;
 }
+.match-card h2 {
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.match-card .league {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 5px;
+}
 
 .match-card {
   background: rgba(255,255,255,0.05);
