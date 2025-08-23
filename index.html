@@ -1,57 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Web de Deportes</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golazo TV</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Golazo tv</h1>
-    <p>Partidos y eventos deportivos sin fines de lucro</p>
-  </header>
 
-  <main>
+<header>
+    <h1>Golazo TV</h1>
+    <p>Eventos deportivos en vivo</p>
+</header>
+
+<main>
     <section>
-      <h2>Fútbol</h2>
-      <table>
-        <tr>
-          <th>Fecha</th>
-          <th>Partido</th>
-          <th>Ver</th>
-        </tr>
-        <tr>
-          <td>23/08/2025</td>
-          <td>Barcelona vs Real Madrid</td>
-          <td><button onclick="verPartido('https://www.youtube.com/embed/live_stream?channel=UCXXXXXX')">Mirar</button></td>
-        </tr>
-        <tr>
-          <td>24/08/2025</td>
-          <td>Manchester United vs Liverpool</td>
-          <td><button onclick="verPartido('https://www.youtube.com/embed/live_stream?channel=UCYYYYYY')">Mirar</button></td>
-        </tr>
-      </table>
+        <h2>Fútbol</h2>
+        <table>
+            <tr>
+                <th>Fecha</th>
+                <th>Partido</th>
+                <th>Ver</th>
+            </tr>
+            <tr>
+                <td>23/08/2025</td>
+                <td>Barcelona vs Real Madrid</td>
+                <td><button onclick="abrirModal('https://www.youtube.com/embed/live_stream?channel=UCXXXXXX')">Mirar</button></td>
+            </tr>
+            <tr>
+                <td>24/08/2025</td>
+                <td>Manchester United vs Liverpool</td>
+                <td><button onclick="abrirModal('https://www.youtube.com/embed/live_stream?channel=UCYYYYYY')">Mirar</button></td>
+            </tr>
+        </table>
     </section>
+</main>
 
-    <section id="playerSection">
-      <h2>Reproductor</h2>
-      <div id="playerContainer">
+<footer>
+    <p>Sin fines de lucro</p>
+</footer>
+
+<!-- Modal del reproductor -->
+<div id="modalPlayer" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
         <iframe id="playerFrame" src="" frameborder="0" allowfullscreen></iframe>
-      </div>
-    </section>
-  </main>
+    </div>
+</div>
 
-  <footer>
-    <p>© 2025 Mi Web de Deportes | Streams legales</p>
-  </footer>
+<script>
+function abrirModal(url) {
+    const modal = document.getElementById('modalPlayer');
+    const iframe = document.getElementById('playerFrame');
+    iframe.src = url;
+    modal.style.display = 'flex';
+}
 
-  <script>
-    function verPartido(url) {
-      const iframe = document.getElementById('playerFrame');
-      iframe.src = url;
-      iframe.scrollIntoView({ behavior: 'smooth' }); // baja la página al reproductor
-    }
-  </script>
+function cerrarModal() {
+    const modal = document.getElementById('modalPlayer');
+    const iframe = document.getElementById('playerFrame');
+    iframe.src = "";
+    modal.style.display = 'none';
+}
+</script>
+
 </body>
 </html>
