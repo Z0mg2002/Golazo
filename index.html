@@ -25,12 +25,12 @@
             <tr>
                 <td>23/08/2025</td>
                 <td>Barcelona vs Real Madrid</td>
-                <td><button onclick="abrirModal('https://www.youtube.com/embed/live_stream?channel=UCXXXXXX')">Mirar</button></td>
+                <td><button onclick="abrirPlayer('https://www.youtube.com/embed/live_stream?channel=UCXXXXXX')">Mirar</button></td>
             </tr>
             <tr>
                 <td>24/08/2025</td>
                 <td>Manchester United vs Liverpool</td>
-                <td><button onclick="abrirModal('https://www.youtube.com/embed/live_stream?channel=UCYYYYYY')">Mirar</button></td>
+                <td><button onclick="abrirPlayer('https://www.youtube.com/embed/live_stream?channel=UCYYYYYY')">Mirar</button></td>
             </tr>
         </table>
     </section>
@@ -40,27 +40,35 @@
     <p>Sin fines de lucro</p>
 </footer>
 
-<!-- Modal del reproductor -->
-<div id="modalPlayer" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="cerrarModal()">&times;</span>
-        <iframe id="playerFrame" src="" frameborder="0" allowfullscreen></iframe>
+<!-- Modal Fullscreen Player -->
+<div id="playerModal" class="player-modal">
+    <div class="player-container">
+        <iframe id="playerIframe" src="" frameborder="0" allowfullscreen></iframe>
+        <div class="player-controls">
+            <button onclick="cerrarPlayer()">✖ Cerrar</button>
+            <button onclick="pausarPlayer()">⏸ Pausar</button>
+        </div>
     </div>
 </div>
 
 <script>
-function abrirModal(url) {
-    const modal = document.getElementById('modalPlayer');
-    const iframe = document.getElementById('playerFrame');
+function abrirPlayer(url) {
+    const modal = document.getElementById('playerModal');
+    const iframe = document.getElementById('playerIframe');
     iframe.src = url;
     modal.style.display = 'flex';
 }
 
-function cerrarModal() {
-    const modal = document.getElementById('modalPlayer');
-    const iframe = document.getElementById('playerFrame');
+function cerrarPlayer() {
+    const modal = document.getElementById('playerModal');
+    const iframe = document.getElementById('playerIframe');
     iframe.src = "";
     modal.style.display = 'none';
+}
+
+function pausarPlayer() {
+    const iframe = document.getElementById('playerIframe');
+    iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
 }
 </script>
 
