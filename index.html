@@ -1,77 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Web de Deportes</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Web de Deportes</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Mi Web de Deportes</h1>
-        <p>Partidos y eventos deportivos legales</p>
-    </header>
+  <header>
+    <h1>Golazo tv</h1>
+    <p>Partidos y eventos deportivos sin fines de lucro</p>
+  </header>
 
-    <main>
-        <!-- Sección de Fútbol -->
-        <section>
-            <h2>Fútbol</h2>
-            <table>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Partido</th>
-                    <th>Ver</th>
-                </tr>
-                <tr>
-                    <td>23/08/2025</td>
-                    <td>Barcelona vs Real Madrid</td>
-                    <td><a href="https://www.youtube.com/embed/live_stream?channel=UCXXXXXX" target="_blank">Ver Partido</a></td>
-                </tr>
-                <tr>
-                    <td>24/08/2025</td>
-                    <td>Manchester United vs Liverpool</td>
-                    <td><a href="https://www.youtube.com/embed/live_stream?channel=UCYYYYYY" target="_blank">Ver Partido</a></td>
-                </tr>
-            </table>
-        </section>
+  <main>
+    <section>
+      <h2>Fútbol</h2>
+      <table>
+        <tr>
+          <th>Fecha</th>
+          <th>Partido</th>
+          <th>Ver</th>
+        </tr>
+        <tr>
+          <td>23/08/2025</td>
+          <td>Barcelona vs Real Madrid</td>
+          <td><button onclick="verPartido('https://www.youtube.com/embed/live_stream?channel=UCXXXXXX')">Mirar</button></td>
+        </tr>
+        <tr>
+          <td>24/08/2025</td>
+          <td>Manchester United vs Liverpool</td>
+          <td><button onclick="verPartido('https://www.youtube.com/embed/live_stream?channel=UCYYYYYY')">Mirar</button></td>
+        </tr>
+      </table>
+    </section>
 
-        <!-- Sección de NBA -->
-        <section>
-            <h2>NBA</h2>
-            <table>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Partido</th>
-                    <th>Ver</th>
-                </tr>
-                <tr>
-                    <td>22/08/2025</td>
-                    <td>Lakers vs Warriors</td>
-                    <td><a href="https://www.youtube.com/embed/live_stream?channel=UCZZZZZZ" target="_blank">Ver Partido</a></td>
-                </tr>
-            </table>
-        </section>
+    <section id="playerSection">
+      <h2>Reproductor</h2>
+      <div id="playerContainer">
+        <iframe id="playerFrame" src="" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+  </main>
 
-        <!-- Sección de F1 -->
-        <section>
-            <h2>Fórmula 1</h2>
-            <table>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Gran Premio</th>
-                    <th>Ver</th>
-                </tr>
-                <tr>
-                    <td>24/08/2025</td>
-                    <td>Gran Premio de Bélgica</td>
-                    <td><a href="https://www.formula1.com/en/subscribe.html" target="_blank">Ver Evento</a></td>
-                </tr>
-            </table>
-        </section>
-    </main>
+  <footer>
+    <p>© 2025 Mi Web de Deportes | Streams legales</p>
+  </footer>
 
-    <footer>
-        <p>© 2025 Mi Web de Deportes | Streams legales</p>
-    </footer>
+  <script>
+    function verPartido(url) {
+      const iframe = document.getElementById('playerFrame');
+      iframe.src = url;
+      iframe.scrollIntoView({ behavior: 'smooth' }); // baja la página al reproductor
+    }
+  </script>
 </body>
 </html>
