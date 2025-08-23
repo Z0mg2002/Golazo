@@ -9,62 +9,55 @@
 <body>
 
 <header>
-    <h1>Golazo TV</h1>
-    <p>Eventos deportivos en vivo</p>
+  <h1>Golazo TV</h1>
+  <p>Eventos deportivos en vivo</p>
 </header>
 
 <main>
-    <section>
-        <h2>Fútbol</h2>
-        <table>
-            <tr>
-                <th>Fecha</th>
-                <th>Partido</th>
-                <th>Ver</th>
-              <tr>
-  <td>23/08/2025</td>
-  <td>Gran Premio F1</td>
-  <td>
-    <button onclick="abrirModal('https://thedaddy.to/embed/stream-60.php')">Mirar</button>
-  </td>
-</tr>
-        </table>
-    </section>
+  <section>
+    <h2>Fútbol</h2>
+    <table>
+      <tr>
+        <th>Fecha</th>
+        <th>Partido</th>
+        <th>Ver</th>
+      </tr>
+      <tr>
+        <td>23/08/2025</td>
+        <td>Gran Premio F1</td>
+        <td>
+          <button onclick="abrirModal('https://thedaddy.to/embed/stream-60.php')">Mirar</button>
+        </td>
+      </tr>
+    </table>
+  </section>
 </main>
 
 <footer>
-    <p>Sin fines de lucro</p>
+  <p>Sin fines de lucro</p>
 </footer>
 
-<!-- Modal Fullscreen Player -->
-<div id="playerModal" class="player-modal">
-    <div class="player-container">
-        <iframe id="playerIframe" src="" frameborder="0" allowfullscreen></iframe>
-        <div class="player-controls">
-            <button onclick="cerrarPlayer()">✖ Cerrar</button>
-            <button onclick="pausarPlayer()">⏸ Pausar</button>
-        </div>
-    </div>
+<!-- Modal del reproductor -->
+<div id="modalPlayer" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <iframe id="playerFrame" src="" allowfullscreen></iframe>
+  </div>
 </div>
 
 <script>
-function abrirPlayer(url) {
-    const modal = document.getElementById('playerModal');
-    const iframe = document.getElementById('playerIframe');
-    iframe.src = url;
-    modal.style.display = 'flex';
+function abrirModal(url) {
+  const modal = document.getElementById('modalPlayer');
+  const iframe = document.getElementById('playerFrame');
+  iframe.src = url;
+  modal.style.display = 'flex';
 }
 
-function cerrarPlayer() {
-    const modal = document.getElementById('playerModal');
-    const iframe = document.getElementById('playerIframe');
-    iframe.src = "";
-    modal.style.display = 'none';
-}
-
-function pausarPlayer() {
-    const iframe = document.getElementById('playerIframe');
-    iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+function cerrarModal() {
+  const modal = document.getElementById('modalPlayer');
+  const iframe = document.getElementById('playerFrame');
+  iframe.src = "";
+  modal.style.display = 'none';
 }
 </script>
 
