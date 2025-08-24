@@ -3,19 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Golazo TV - AC Milan</title>
+<title>Golazo TV</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header>
   <h1>Golazo TV</h1>
-  <p>Evento deportivo en vivo</p>
+  <p>Eventos deportivos en vivo</p>
 </header>
 
 <main>
-  <div id="matchesContainer" class="matches-container">
-    <!-- Tarjeta del AC Milan se llenará con JS -->
+  <div class="schedule-container">
+    <h2 class="schedule-title">PARTIDOS DE HOY</h2>
+    <div class="matches-scroll">
+
+      <!-- Partido ejemplo -->
+      <div class="match-card">
+        <p class="time">10:00</p>
+        <h3>AC Milan vs Inter</h3>
+        <p class="league">Serie A</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=espn4')">Mirar</button>
+      </div>
+
+      <div class="match-card">
+        <p class="time">12:00</p>
+        <h3>Barcelona vs Real Madrid</h3>
+        <p class="league">LaLiga</p>
+        <button onclick="abrirModal('https://embedsports.top/embed/bravo/1755966600000-arsenal-leeds-spanish-/2')">Mirar</button>
+      </div>
+
+      <div class="match-card">
+        <p class="time">14:30</p>
+        <h3>Ajax vs Heracles</h3>
+        <p class="league">Eredivisie</p>
+        <button onclick="abrirModal('https://topembed.pw/channel/ESPN%5BArgentina%5D')">Mirar</button>
+      </div>
+
+    </div>
   </div>
 </main>
 
@@ -23,43 +48,16 @@
 <div id="modalPlayer" class="modal">
   <div class="modal-content">
     <span class="close" onclick="cerrarModal()">&times;</span>
-    <div class="video-container" id="playerContainer">
-      <!-- Iframe se carga aquí -->
-    </div>
+    <div class="video-container" id="playerContainer"></div>
   </div>
 </div>
 
 <script>
-// Stream fijo
-const server1 = "https://la14hd.com/vivo/canales.php?stream=espn4";
-
-// Partido fijo de ejemplo
-const partido = {
-  home: "AC Milan",
-  away: "Inter Milan",
-  league: "Serie A",
-  time: "20:00 (hora Argentina)"
-};
-
-// Mostrar tarjeta
-const container = document.getElementById('matchesContainer');
-container.innerHTML = `
-  <div class="match-card">
-    <div class="match-info">
-      <h2>${partido.home} vs ${partido.away}</h2>
-      <p class="league">${partido.league}</p>
-      <p class="match-time">Hoy ${partido.time}</p>
-      <button onclick="abrirModal()">Mirar</button>
-    </div>
-  </div>
-`;
-
-// Modal
-function abrirModal() {
+function abrirModal(url) {
   const playerContainer = document.getElementById('playerContainer');
-  playerContainer.innerHTML = ''; // limpiar
+  playerContainer.innerHTML = '';
   const iframe = document.createElement('iframe');
-  iframe.src = server1;
+  iframe.src = url;
   iframe.width = "100%";
   iframe.height = "100%";
   iframe.frameBorder = "0";
