@@ -11,29 +11,49 @@ header {
   text-align: center;
 }
 
-.matches-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+.schedule-container {
+  margin: 20px;
+  background: #1a1a1a;
+  border-radius: 20px;
+  padding: 15px;
+}
+
+.schedule-title {
+  text-align: center;
+  font-size: 22px;
+  color: #00aaff;
+  margin-bottom: 15px;
+}
+
+.matches-scroll {
+  max-height: 70vh; /* ocupa 70% de la pantalla */
+  overflow-y: auto;
+  padding-right: 5px;
 }
 
 .match-card {
-  background: rgba(255,255,255,0.05);
+  background: #2a2a2a;
   border-radius: 15px;
-  padding: 20px;
-  width: 250px;
+  padding: 15px;
+  margin-bottom: 12px;
   text-align: center;
 }
 
-.match-card h2 {
-  font-size: 20px;
+.match-card .time {
+  font-size: 16px;
+  color: #00aaff;
+  margin: 0 0 5px;
+}
+
+.match-card h3 {
+  font-size: 18px;
   margin: 5px 0;
 }
 
 .match-card .league {
   font-size: 14px;
   color: #aaa;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 button {
@@ -41,7 +61,7 @@ button {
   border: none;
   color: white;
   padding: 8px 16px;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
