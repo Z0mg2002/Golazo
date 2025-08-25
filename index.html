@@ -48,6 +48,260 @@
   .channel-btn img:hover {
     transform: scale(1.09);
   }
+
+  /* --- Estilos para el botón DMCA y el modal DMCA --- */
+  .dmca-btn {
+    margin-left: 10px;
+    padding: 3px 12px;
+    border-radius: 16px;
+    background: #eaeaea;
+    border: 1px solid #bbb;
+    color: #222;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+  }
+  .dmca-btn:hover {
+    background: #d2d2d2;
+    border-color: #0088cc;
+    color: #0088cc;
+  }
+  .dmca-modal {
+    display: none;
+    position: fixed;
+    z-index: 9000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.55);
+    justify-content: center;
+    align-items: center;
+  }
+  .dmca-modal-content {
+    background: #1a1a1a;
+    color: #f0f0f0;
+    padding: 24px 18px;
+    border-radius: 12px;
+    max-width: 430px;
+    width: 90vw;
+    box-shadow: 0 4px 28px rgba(0,0,0,0.18);
+    position: relative;
+    font-size: 15px;
+    line-height: 1.6;
+    border: 1px solid #00aaff;
+  }
+  .dmca-close {
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    font-size: 22px;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .dmca-close:hover {
+    color: #00aaff;
+  }
+  .dmca-modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #00aaff;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-actions">
+    <h1>Golazo TV</h1>
+    <a href="https://github.com/gorhill/uBlock?tab=readme-ov-file#ublock-origin-ubo" target="_blank">
+      Cómo bloquear pop-ups o anuncios
+    </a>
+  </div>
+  <p>Eventos deportivos en vivo</p>
+</header>
+
+<main>
+  <div class="schedule-container">
+    <h2 class="schedule-title">PARTIDOS DE HOY</h2>
+    <div class="matches-scroll">
+      <!-- ...agenda deportiva... -->
+      <div class="match-card">
+        <p class="time">14:00</p>
+        <h3>Udinese vs Hellas Verona</h3>
+        <p class="league">Serie A</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=espn4')">Mirar</button>
+      </div>
+
+      <div class="match-card">
+        <p class="time">14:00</p>
+        <h3>Albacete vs Racing Santander</h3>
+        <p class="league">La Liga 2</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=disney5')">Mirar</button>
+      </div>
+
+      <div class="match-card">
+        <p class="time">14:30</p>
+        <h3>Real Sociedad vs Espanyol</h3>
+        <p class="league">LaLiga</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=espn4')">Mirar</button>
+      </div>
+
+         <div class="match-card">
+        <p class="time">14:30</p>
+        <h3>Athletic Club vs Rayo Vallecano</h3>
+        <p class="league">LaLiga</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=dsportsplus')">Mirar</button>
+      </div>
+
+              <div class="match-card">
+        <p class="time">15:00</p>
+        <h3>Deportivo Riestra vs Sarmiento</h3>
+        <p class="league">Liga Profesional</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=tntsports')">Mirar</button>
+      </div>
+
+          <div class="match-card">
+        <p class="time">15:45</p>
+        <h3>Internazionale vs Torino</h3>
+        <p class="league">Serie A</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=espn')">Mirar</button>
+      </div>
+
+      
+          <div class="match-card">
+        <p class="time">16:00</p>
+        <h3>Newcastle United vs Liverpoolo</h3>
+        <p class="league">Premier League</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=disney8')">Mirar</button>
+      </div>
+
+                <div class="match-card">
+        <p class="time">16:30</p>
+        <h3>Sevilla vs Getafe</h3>
+        <p class="league">La Liga</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=espn4')">Mirar</button>
+      </div>
+
+       <div class="match-card">
+        <p class="time">18:30</p>
+        <h3>Libertad vs Club Guarani</h3>
+        <p class="league">Copa de primera</p>
+        <button onclick="abrirModal('https://futbol.to/en-vivo/?c=tigosports1')">Mirar</button>
+      </div>
+
+       
+      <div class="match-card">
+        <p class="time">19:00</p>
+        <h3>Belgrano vs Central Cordoba SDE</h3>
+        <p class="league">Liga Profesional</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=espnpremium')">Mirar</button>
+      </div>
+
+                <div class="match-card">
+        <p class="time">19:00</p>
+        <h3>Palmeiras vs Sport Recife</h3>
+        <p class="league">Brasileirao</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=disney4')">Mirar</button>
+      </div>
+
+         <div class="match-card">
+        <p class="time">19:15</p>
+        <h3>Estudiantes De La Plata vs Aldosivi</h3>
+        <p class="league">Serie A</p>
+        <button onclick="abrirModal('https://streamtp11.com/global1.php?stream=tntsports')">Mirar</button>
+      </div>
+
+      
+    </div>
+  </div>
+</main>
+
+<!-- Modal fullscreen -->
+<div id="modalPlayer" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <div class="video-container" id="playerContainer"></div>
+  </div>
+</div>
+
+<div class="channels-container">
+  <h2>Canales</h2>
+  <div class="channels-grid">
+    <button class="channel-btn" onclick="abrirModal('https://topembed.pw/channel/SkySportsF1%5BUK%5D')">
+      <img src="assets/f1.png" alt="Canal F1">
+    </button>
+  </div>
+</div>
+
+<footer>
+  <p>
+    Sin fines de lucro
+    <button id="dmcaBtn" class="dmca-btn">DMCA</button>
+  </p>
+</footer>
+  <!-- Modal DMCA -->
+<div id="dmcaModal" class="dmca-modal">
+  <div class="dmca-modal-content">
+    <span class="dmca-close" onclick="cerrarDMCAModal()">&times;</span>
+    <h3>Aviso DMCA</h3>
+    <p>
+      Este sitio web no almacena, transmite ni distribuye directamente ningún contenido audiovisual sujeto a derechos de autor.<br><br>
+      Todos los videos, transmisiones en vivo y demás materiales disponibles en esta página provienen de servidores externos de libre acceso en Internet. Nuestra plataforma se limita únicamente a recopilar, organizar y mostrar enlaces o incrustaciones (“embeds”) de dichos contenidos, sin intervenir en su disponibilidad, calidad o legalidad.<br><br>
+      No reclamamos ningún tipo de propiedad intelectual sobre el material mostrado ni mantenemos vínculo alguno con los titulares de derechos. Todo el contenido pertenece a sus respectivos autores, marcas y propietarios registrados.<br><br>
+      El sitio tiene un carácter meramente informativo y recreativo, sin fines de lucro.<br><br>
+      Si usted es titular de derechos de autor y considera que algún enlace publicado aquí infringe sus derechos, puede comunicarse con nosotros al correo <b>GolazoTvContacto@proton.me</b><br>
+      Revisaremos su solicitud y, de ser necesario, retiraremos el contenido correspondiente de manera inmediata.
+    </p>
+  </div>
+</div>
+  
+<script>
+function abrirModal(url) {
+  const playerContainer = document.getElementById('playerContainer');
+  playerContainer.innerHTML = '';
+  const iframe = document.createElement('iframe');
+  iframe.src = url;
+  iframe.width = "100%";
+  iframe.height = "100%";
+  iframe.frameBorder = "0";
+  iframe.allowFullscreen = true;
+  iframe.allow = "encrypted-media; picture-in-picture";
+  iframe.scrolling = "no";
+  playerContainer.appendChild(iframe);
+  document.getElementById('modalPlayer').style.display = 'flex';
+}
+
+function cerrarModal() {
+  document.getElementById('modalPlayer').style.display = 'none';
+  document.getElementById('playerContainer').innerHTML = '';
+}
+
+// DMCA Modal functionality
+document.getElementById('dmcaBtn').onclick = function() {
+  document.getElementById('dmcaModal').style.display = 'flex';
+}
+function cerrarDMCAModal() {
+  document.getElementById('dmcaModal').style.display = 'none';
+}
+</script>
+
+</body>
+</html>  .channel-btn:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .channel-btn img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    border-radius: 50%;
+    transition: transform 0.18s;
+    background: transparent;
+  }
+  .channel-btn img:hover {
+    transform: scale(1.09);
+  }
 </style>
 </head>
 <body>
