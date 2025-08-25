@@ -290,7 +290,15 @@
   </div>
 </main>
 
-  <div class="channels-container">
+<!-- Modal fullscreen -->
+<div id="modalPlayer" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <div class="video-container" id="playerContainer"></div>
+  </div>
+</div>
+
+    <div class="channels-container">
     <h2>Canales</h2>
     <div class="channels-grid">
       <button class="channel-btn" onclick="abrirModal('https://topembed.pw/channel/SkySportsF1%5BUK%5D')">
@@ -299,14 +307,6 @@
     </div>
   </div>
 </main>
-
-<!-- Modal fullscreen -->
-<div id="modalPlayer" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="cerrarModal()">&times;</span>
-    <div class="video-container" id="playerContainer"></div>
-  </div>
-</div>
   
   <footer>
   <p>Sin fines de lucro</p>
