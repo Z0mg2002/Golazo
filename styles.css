@@ -95,6 +95,73 @@ button:hover { background-color: #0088cc; }
   cursor: pointer;
   color: white;
   z-index: 10;
+
+  /* --- Estilos para el botón DMCA y el modal DMCA --- */
+.dmca-btn {
+  margin-left: 10px;
+  padding: 3px 12px;
+  border-radius: 16px;
+  background: #eaeaea;
+  border: 1px solid #bbb;
+  color: #222;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+
+.dmca-btn:hover {
+  background: #d2d2d2;
+  border-color: #0088cc;
+  color: #0088cc;
+}
+
+.dmca-modal {
+  display: none;
+  position: fixed;
+  z-index: 9000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.55);
+  justify-content: center;
+  align-items: center;
+}
+
+.dmca-modal-content {
+  background: #1a1a1a;
+  color: #f0f0f0;
+  padding: 24px 18px;
+  border-radius: 12px;
+  max-width: 430px;
+  width: 90vw;
+  box-shadow: 0 4px 28px rgba(0,0,0,0.18);
+  position: relative;
+  font-size: 15px;
+  line-height: 1.6;
+  border: 1px solid #00aaff;
+}
+
+.dmca-close {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  font-size: 22px;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.dmca-close:hover {
+  color: #00aaff;
+}
+
+.dmca-modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #00aaff;
+}
 }
 
 .video-container {
