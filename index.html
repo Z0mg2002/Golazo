@@ -229,7 +229,7 @@
 <div class="channels-container">
   <h2>Canales</h2>
   <div class="channels-grid">
-    <button class="channel-btn" onclick="abrirModal('https://hakunamatata5.org/d5ae67dc-5d48-45b7-bcbd-ab1cb8841430')">
+    <button class="channel-btn" onclick="abrirF1Stream()">
       <img src="assets/f1.png" alt="Canal F1">
     </button>
   </div>
@@ -284,6 +284,13 @@ document.getElementById('dmcaBtn').onclick = function() {
 }
 function cerrarDMCAModal() {
   document.getElementById('dmcaModal').style.display = 'none';
+}
+
+// Nuevo: función para el canal F1
+function abrirF1Stream() {
+  const playerContainer = document.getElementById('playerContainer');
+  playerContainer.innerHTML = `<iframe title="Live" width="100%" height="600" src="https://hakunamatata5.org/sky-main-event/clean.html" frameborder="0" allowfullscreen sandbox="allow-same-origin allow-scripts allow-popups"></iframe>`;
+  document.getElementById('modalPlayer').style.display = 'flex';
 }
 </script>
 
