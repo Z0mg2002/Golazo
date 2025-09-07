@@ -195,6 +195,41 @@
     <button class="channel-btn" onclick="abrirF1Stream()">
       <img src="assets/f1.png" alt="Canal F1">
     </button>
+        <!-- Botón Multicam -->
+    <button class="channel-btn" id="multicamBtn" title="Multicam" onclick="abrirMulticam()">
+      <img src="https://img.icons8.com/ios-filled/50/000000/grid-4.png" alt="Multicam" style="background: #e2f7ff;">
+    </button>
+  </div>
+</div>
+
+<!-- Modal Multicam -->
+<div id="multicamModal" class="multicam-modal" style="display:none;">
+  <div class="multicam-content">
+    <span class="multicam-close" onclick="cerrarMulticam()">&times;</span>
+    <h2 style="margin-bottom:10px;">Multicam - Selecciona hasta 4 partidos</h2>
+    <div class="multicam-select-row">
+      <select class="multicam-select" id="select1" onchange="actualizaMulticam(1)">
+        <option value="">-- Elige partido --</option>
+      </select>
+      <select class="multicam-select" id="select2" onchange="actualizaMulticam(2)">
+        <option value="">-- Elige partido --</option>
+      </select>
+      <select class="multicam-select" id="select3" onchange="actualizaMulticam(3)">
+        <option value="">-- Elige partido --</option>
+      </select>
+      <select class="multicam-select" id="select4" onchange="actualizaMulticam(4)">
+        <option value="">-- Elige partido --</option>
+      </select>
+    </div>
+    <div class="multicam-grid" id="multicamGrid" style="margin-top:15px;">
+      <div><iframe id="mc_iframe1" class="multicam-iframe" allowfullscreen></iframe></div>
+      <div><iframe id="mc_iframe2" class="multicam-iframe" allowfullscreen></iframe></div>
+      <div><iframe id="mc_iframe3" class="multicam-iframe" allowfullscreen></iframe></div>
+      <div><iframe id="mc_iframe4" class="multicam-iframe" allowfullscreen></iframe></div>
+    </div>
+  </div>
+</div>
+
   </div>
 </div>
 
@@ -256,6 +291,60 @@ function abrirF1Stream() {
   document.getElementById('modalPlayer').style.display = 'flex';
 }
 </script>
+
+  <script>
+  // Extrae partidos del DOM para poblar los selects
+  function obtenerPartidosHoy() {
+    const cards = document.querySelectorAll('.match-card');
+    const partidos = [];
+    cards.forEach(card => {
+      const nombre = card.querySelector('h3')?.innerText;
+      const boton = card.querySelector('button');
+      let url = "";
+      if (boton && boton.getAttribute('onclick')) {
+        const match = boton.getAttribute('onclick').match(/abrirModal\(['"]([^'"]+)['"]\)/);
+        url = match ? match[1] : "";
+      }
+      if (nombre && url) partidos.push({ nombre, url });
+    });
+    return partidos;
+  }
+
+  function abrirMulticam() {
+    // Pobla los selects con los partidos del día
+    const partidos = obtenerPartidosHoy();
+    for (let i = 1; i <= 4; i++) {
+      const select = document.getElementById('select' + i);
+      select.innerHTML = '<option value="">-- Elige partido --</option>';
+      partidos.forEach(p =>
+        select.innerHTML += `<option value="${p.url}">${p.nombre}</option>`
+      );
+    }
+    // Limpiar iframes
+    for (let i = 1; i <= 4; i++) {
+      document.getElementById('mc_iframe' + i).src = "";
+    }
+    document.getElementById('multicamModal').style.display = 'flex';
+  }
+
+  function cerrarMulticam() {
+    document.getElementById('multicamModal').style.display = 'none';
+    for (let i = 1; i <= 4; i++) {
+      document.getElementById('mc_iframe' + i).src = "";
+    }
+  }
+
+  function actualizaMulticam(idx) {
+    const select = document.getElementById('select' + idx);
+    const iframe = document.getElementById('mc_iframe' + idx);
+    if (select.value) {
+      iframe.src = select.value;
+    } else {
+      iframe.src = "";
+    }
+  }
+</script>
+  
 
 </body>
 </html>
