@@ -195,10 +195,13 @@
     <button class="channel-btn" onclick="abrirF1Stream()">
       <img src="assets/f1.png" alt="Canal F1">
     </button>
-        <!-- Botón Multicam -->
-    <button class="channel-btn" id="multicamBtn" title="Multicam" onclick="abrirMulticam()">
-      <img src="https://img.icons8.com/ios-filled/50/000000/grid-4.png" alt="Multicam" style="background: #e2f7ff;">
-    </button>
+    <!-- MULTICAM botón embellecido -->
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <button id="multicamBtn" class="channel-btn multicam-main-btn" onclick="abrirMulticam()" title="Multicam">
+        <span style="font-size:2rem;">🖥️</span>
+      </button>
+      <span style="font-size:15px;color:#00aaff;font-weight:500;margin-top:3px;">MULTICAM</span>
+    </div>
   </div>
 </div>
 
@@ -206,26 +209,19 @@
 <div id="multicamModal" class="multicam-modal" style="display:none;">
   <div class="multicam-content">
     <span class="multicam-close" onclick="cerrarMulticam()">&times;</span>
-    <h2 style="margin-bottom:10px;">Multicam - Selecciona hasta 4 partidos</h2>
-    <div class="multicam-select-row">
-      <select class="multicam-select" id="select1" onchange="actualizaMulticam(1)">
-        <option value="">-- Elige partido --</option>
-      </select>
-      <select class="multicam-select" id="select2" onchange="actualizaMulticam(2)">
-        <option value="">-- Elige partido --</option>
-      </select>
-      <select class="multicam-select" id="select3" onchange="actualizaMulticam(3)">
-        <option value="">-- Elige partido --</option>
-      </select>
-      <select class="multicam-select" id="select4" onchange="actualizaMulticam(4)">
-        <option value="">-- Elige partido --</option>
-      </select>
-    </div>
-    <div class="multicam-grid" id="multicamGrid" style="margin-top:15px;">
+    <h2 style="color:#00aaff;margin-bottom:10px;">MULTICAM</h2>
+    <div class="multicam-grid" id="multicamGrid">
       <div><iframe id="mc_iframe1" class="multicam-iframe" allowfullscreen></iframe></div>
       <div><iframe id="mc_iframe2" class="multicam-iframe" allowfullscreen></iframe></div>
       <div><iframe id="mc_iframe3" class="multicam-iframe" allowfullscreen></iframe></div>
       <div><iframe id="mc_iframe4" class="multicam-iframe" allowfullscreen></iframe></div>
+    </div>
+    <div class="multicam-select-row" id="multicamSelector">
+      <!-- Aquí van los botones para elegir partido por JS -->
+    </div>
+    <span style="font-size:13px;color:#00aaff;margin-top:7px;display:block;text-align:center;">Selecciona los eventos para cada pantalla</span>
+  </div>
+</div>
     </div>
   </div>
 </div>
