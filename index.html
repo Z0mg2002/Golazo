@@ -206,7 +206,7 @@
   </div>
 </div>
 
-<!-- MODAL MULTICAM (fuera de cualquier div) -->
+<!-- MODAL MULTICAM -->
 <div id="multicamModal" class="multicam-modal" style="display:none;">
   <div class="multicam-content">
     <span class="multicam-close" onclick="cerrarMulticam()">&times;</span>
@@ -231,7 +231,6 @@
     </div>
     <span style="font-size:13px;color:#00aaff;margin-top:7px;display:block;text-align:center;">Selecciona el evento para cada pantalla</span>
   </div>
-</div>
 </div>
     </div>
   </div>
@@ -299,7 +298,7 @@ function abrirF1Stream() {
 }
 </script>
 
- <script>
+<script>
 function obtenerPartidosHoy() {
   // Extrae partidos del DOM para poblar los botones
   const cards = document.querySelectorAll('.match-card');
@@ -318,12 +317,10 @@ function obtenerPartidosHoy() {
 }
 
 function abrirMulticam() {
-  // Limpiar iframes y botones
   for (let i = 1; i <= 4; i++) {
     document.getElementById('mc_iframe' + i).src = "";
     document.getElementById('mc_selector' + i).innerHTML = "";
   }
-  // Renderiza botones por pantalla
   const partidos = obtenerPartidosHoy();
   for (let idx = 1; idx <= 4; idx++) {
     const selectorDiv = document.getElementById('mc_selector' + idx);
@@ -337,7 +334,6 @@ function abrirMulticam() {
       btn.innerText = p.nombre;
       btn.onclick = function() {
         document.getElementById('mc_iframe' + idx).src = p.url;
-        // Marcar activo SOLO en la columna actual
         Array.from(selectorDiv.querySelectorAll('.multicam-event-btn')).forEach(b=>b.classList.remove('active'));
         btn.classList.add('active');
       };
@@ -345,7 +341,6 @@ function abrirMulticam() {
     });
   }
   document.getElementById('multicamModal').style.display = 'flex';
-  // Para ocultar scroll del body (opcional)
   document.body.style.overflow = "hidden";
 }
 
@@ -354,7 +349,7 @@ function cerrarMulticam() {
   for (let i = 1; i <= 4; i++) {
     document.getElementById('mc_iframe' + i).src = "";
   }
-  document.body.style.overflow = ""; // Restablece scroll
+  document.body.style.overflow = "";
 }
 </script>
 
