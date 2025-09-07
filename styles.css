@@ -282,4 +282,44 @@ button:hover { background-color: #0088cc; }
   }
   .multicam-iframe { min-height: 74px; }
 }
+/* Ajustar altura y tamaño de botones multicam */
+.multicam-event-btn {
+  background: linear-gradient(90deg,#00aaff 0%,#0077cc 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 3px;
+  padding: 5px 6px;        /* menos alto */
+  font-size: 12px;         /* texto más compacto */
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  transition: background 0.19s, transform 0.16s;
+  outline: none;
+  width: 100%;
+  min-width: 0;
+  white-space: nowrap;     /* que no se corte en varias líneas */
+  overflow: hidden;
+  text-overflow: ellipsis; /* ... si el texto es muy largo */
+}
+
+.multicam-event-btn:hover,
+.multicam-event-btn.active {
+  background: linear-gradient(90deg,#00cfff 60%,#46f6fa 100%);
+  color: #222;
+  transform: scale(1.03);
+}
+
+/* Contenedor de lista de partidos por pantalla */
+.multicam-selector-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  max-height: 150px;  /* límite para que no se estire infinito */
+  overflow-y: auto;   /* scroll si hay muchos partidos */
+  padding-right: 2px;
+}
+
 </script>
