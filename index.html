@@ -196,13 +196,7 @@
       <img src="assets/f1.png" alt="Canal F1">
     </button>
    <div class="channels-container">
-  <h2>Canales</h2>
-  <div class="channels-grid">
-    <button class="channel-btn" onclick="abrirF1Stream()">
-      <img src="assets/f1.png" alt="Canal F1">
-    </button>
-  
-    <!-- Botón Multicam bonito -->
+  <!-- Botón Multicam Embellecido -->
     <div style="display:flex;flex-direction:column;align-items:center;">
       <button id="multicamBtn" class="channel-btn multicam-main-btn" onclick="abrirMulticam()" title="Multicam">
         <span style="font-size:2rem;">🖥️</span>
@@ -212,22 +206,32 @@
   </div>
 </div>
 
-<!-- MODAL MULTICAM -->
+<!-- MODAL MULTICAM (fuera de cualquier div) -->
 <div id="multicamModal" class="multicam-modal" style="display:none;">
   <div class="multicam-content">
     <span class="multicam-close" onclick="cerrarMulticam()">&times;</span>
     <h2 style="color:#00aaff;margin-bottom:10px;">MULTICAM</h2>
     <div class="multicam-grid" id="multicamGrid">
-      <div><iframe id="mc_iframe1" class="multicam-iframe" allowfullscreen></iframe></div>
-      <div><iframe id="mc_iframe2" class="multicam-iframe" allowfullscreen></iframe></div>
-      <div><iframe id="mc_iframe3" class="multicam-iframe" allowfullscreen></iframe></div>
-      <div><iframe id="mc_iframe4" class="multicam-iframe" allowfullscreen></iframe></div>
+      <div>
+        <iframe id="mc_iframe1" class="multicam-iframe" allowfullscreen></iframe>
+        <div class="multicam-selector-col" id="mc_selector1"></div>
+      </div>
+      <div>
+        <iframe id="mc_iframe2" class="multicam-iframe" allowfullscreen></iframe>
+        <div class="multicam-selector-col" id="mc_selector2"></div>
+      </div>
+      <div>
+        <iframe id="mc_iframe3" class="multicam-iframe" allowfullscreen></iframe>
+        <div class="multicam-selector-col" id="mc_selector3"></div>
+      </div>
+      <div>
+        <iframe id="mc_iframe4" class="multicam-iframe" allowfullscreen></iframe>
+        <div class="multicam-selector-col" id="mc_selector4"></div>
+      </div>
     </div>
-    <div class="multicam-select-row" id="multicamSelector">
-      <!-- Los botones para elegir evento se generan por JS -->
-    </div>
-    <span style="font-size:13px;color:#00aaff;margin-top:7px;display:block;text-align:center;">Selecciona los eventos para cada pantalla</span>
+    <span style="font-size:13px;color:#00aaff;margin-top:7px;display:block;text-align:center;">Selecciona el evento para cada pantalla</span>
   </div>
+</div>
 </div>
     </div>
   </div>
