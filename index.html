@@ -347,7 +347,67 @@ function abrirF1Stream() {
     }
   }
 </script>
-  
+  <script>
+function obtenerPartidosHoy() {
+  // Extrae partidos del DOM para poblar los botones
+  const cards = document.querySelectorAll('.match-card');
+  const partidos = [];
+  cards.forEach(card => {
+    const nombre = card.querySelector('h3')?.innerText;
+    const boton = card.querySelector('button');
+    let url = "";
+    if (boton && boton.getAttribute('onclick')) {
+      const match = boton.getAttribute('onclick').match(/abrirModal\(['"]([^'"]+)['"]\)/);
+      url = match ? match[1] : "";
+    }
+    if (nombre && url) partidos.push({ nombre, url });
+  });
+  return partidos;
+}
+
+function abrirMulticam() {
+  // Limpia iframes
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('mc_iframe' + i).src = "";
+  }
+  // Renderiza los botones de selección de eventos
+  const partidos = obtenerPartidosHoy();
+  const selector = document.getElementById('multicamSelector');
+  selector.innerHTML = '';
+  for (let fila = 0; fila < 2; fila++) {
+    const col = document.createElement('div');
+    col.className = 'multicam-selector-col';
+    for (let colIdx = 0; colIdx < 2; colIdx++) {
+      const idx = fila * 2 + colIdx + 1;
+      const label = document.createElement('div');
+      label.style = 'color:#00aaff;font-size:14px;font-weight:500;margin-bottom:2px;';
+      label.innerText = 'Pantalla ' + idx;
+      col.appendChild(label);
+      partidos.forEach((p, pi) => {
+        const btn = document.createElement('button');
+        btn.className = 'multicam-event-btn';
+        btn.innerText = p.nombre;
+        btn.onclick = function() {
+          document.getElementById('mc_iframe' + idx).src = p.url;
+          // Marcar activo
+          Array.from(col.querySelectorAll('.multicam-event-btn')).forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+        };
+        col.appendChild(btn);
+      });
+    }
+    selector.appendChild(col);
+  }
+  document.getElementById('multicamModal').style.display = 'flex';
+}
+
+function cerrarMulticam() {
+  document.getElementById('multicamModal').style.display = 'none';
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('mc_iframe' + i).src = "";
+  }
+}
+</script>
 
 </body>
 </html>
