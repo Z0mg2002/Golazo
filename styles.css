@@ -168,3 +168,174 @@ button:hover { background-color: #0088cc; }
   width: 100%;
   height: 100%;
 }
+
+<style>
+/* MultiCam Styles */
+.multicam-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.86);
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+}
+.multicam-content {
+  background: #10131a;
+  padding: 28px 18px 18px 18px;
+  border-radius: 18px;
+  max-width: 680px;
+  width: 97vw;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.32);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #00aaff;
+}
+.multicam-close {
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  font-size: 32px;
+  color: #00aaff;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-weight: bold;
+  z-index:10;
+}
+.multicam-close:hover { color: #fff; }
+.multicam-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+.multicam-iframe {
+  width: 100%;
+  height: 170px;
+  border-radius: 10px;
+  border: 2px solid #00aaff;
+  background: #191f2b;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+  transition: border 0.2s;
+}
+.multicam-iframe:focus, .multicam-iframe:hover {
+  border-color: #46f6fa;
+}
+.multicam-select-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 2px;
+}
+.multicam-selector-col {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.multicam-event-btn {
+  background: linear-gradient(90deg,#00aaff 0%,#0077cc 100%);
+  color: #fff;
+  border: none;
+  border-radius: 11px;
+  margin-bottom: 2px;
+  padding: 8px 11px;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+  transition: background 0.19s, transform 0.16s;
+  outline: none;
+}
+.multicam-event-btn:hover, .multicam-event-btn.active {
+  background: linear-gradient(90deg,#00cfff 60%,#46f6fa 100%);
+  color: #222;
+  transform: scale(1.04);
+}
+@media (max-width: 600px) {
+  .multicam-content { padding: 6px; max-width:98vw;}
+  .multicam-iframe { height: 105px; }
+  .multicam-grid { gap: 7px; }
+  .multicam-select-row { gap:7px; }
+}
+.multicam-main-btn {
+  background: linear-gradient(180deg,#00aaff 0%,#191f2b 100%);
+  border: 2px solid #00aaff;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.18);
+}
+.multicam-main-btn:hover {
+  background: linear-gradient(180deg,#46f6fa 0%,#191f2b 100%);
+  border-color: #46f6fa;
+}
+</style>
+
+<!-- JS al final del archivo -->
+<script>
+function obtenerPartidosHoy() {
+  // Extrae partidos del DOM para poblar los botones
+  const cards = document.querySelectorAll('.match-card');
+  const partidos = [];
+  cards.forEach(card => {
+    const nombre = card.querySelector('h3')?.innerText;
+    const boton = card.querySelector('button');
+    let url = "";
+    if (boton && boton.getAttribute('onclick')) {
+      const match = boton.getAttribute('onclick').match(/abrirModal\(['"]([^'"]+)['"]\)/);
+      url = match ? match[1] : "";
+    }
+    if (nombre && url) partidos.push({ nombre, url });
+  });
+  return partidos;
+}
+
+function abrirMulticam() {
+  // Limpia iframes
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('mc_iframe' + i).src = "";
+  }
+  // Renderiza los botones de selección de eventos
+  const partidos = obtenerPartidosHoy();
+  const selector = document.getElementById('multicamSelector');
+  selector.innerHTML = '';
+  for (let fila = 0; fila < 2; fila++) {
+    const col = document.createElement('div');
+    col.className = 'multicam-selector-col';
+    for (let colIdx = 0; colIdx < 2; colIdx++) {
+      const idx = fila * 2 + colIdx + 1;
+      const label = document.createElement('div');
+      label.style = 'color:#00aaff;font-size:14px;font-weight:500;margin-bottom:2px;';
+      label.innerText = 'Pantalla ' + idx;
+      col.appendChild(label);
+      partidos.forEach((p, pi) => {
+        const btn = document.createElement('button');
+        btn.className = 'multicam-event-btn';
+        btn.innerText = p.nombre;
+        btn.onclick = function() {
+          document.getElementById('mc_iframe' + idx).src = p.url;
+          // Marcar activo
+          Array.from(col.querySelectorAll('.multicam-event-btn')).forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+        };
+        col.appendChild(btn);
+      });
+    }
+    selector.appendChild(col);
+  }
+  document.getElementById('multicamModal').style.display = 'flex';
+}
+
+function cerrarMulticam() {
+  document.getElementById('multicamModal').style.display = 'none';
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('mc_iframe' + i).src = "";
+  }
+}
+</script>
