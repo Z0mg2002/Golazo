@@ -5,51 +5,178 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Golazo TV</title>
 <link rel="stylesheet" href="styles.css">
+<style>
+  .channels-container {
+    margin-top: 40px;
+  }
+  .channels-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .channels-grid {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  .channel-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: #f4f4f4;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: box-shadow 0.2s;
+  }
+  .channel-btn:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .channel-btn img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    border-radius: 50%;
+    transition: transform 0.18s;
+    background: transparent;
+  }
+  .channel-btn img:hover {
+    transform: scale(1.09);
+  }
+
+  /* --- Estilos para el botón DMCA y el modal DMCA --- */
+  .dmca-btn {
+    margin-left: 10px;
+    padding: 3px 12px;
+    border-radius: 16px;
+    background: #eaeaea;
+    border: 1px solid #bbb;
+    color: #222;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+  }
+  .dmca-btn:hover {
+    background: #d2d2d2;
+    border-color: #0088cc;
+    color: #0088cc;
+  }
+  .dmca-modal {
+    display: none;
+    position: fixed;
+    z-index: 9000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.55);
+    justify-content: center;
+    align-items: center;
+  }
+  .dmca-modal-content {
+    background: #1a1a1a;
+    color: #f0f0f0;
+    padding: 24px 18px;
+    border-radius: 12px;
+    max-width: 430px;
+    width: 90vw;
+    box-shadow: 0 4px 28px rgba(0,0,0,0.18);
+    position: relative;
+    font-size: 15px;
+    line-height: 1.6;
+    border: 1px solid #00aaff;
+  }
+  .dmca-close {
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    font-size: 22px;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .dmca-close:hover {
+    color: #00aaff;
+  }
+  .dmca-modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #00aaff;
+  }
+</style>
 </head>
 <body>
 <header>
   <div class="header-actions">
     <h1>Golazo TV</h1>
-    <a href="https://github.com/gorhill/uBlock?tab=readme-ov-file#ublock-origin-ubo" target="_blank">Cómo bloquear pop-ups o anuncios</a>
+    <a href="https://github.com/gorhill/uBlock?tab=readme-ov-file#ublock-origin-ubo" target="_blank">
+      Cómo bloquear pop-ups o anuncios
+    </a>
   </div>
   <p>Eventos deportivos en vivo</p>
 </header>
 
 <main>
   <div class="schedule-container">
-    <h2 class="schedule-title">AGENDA DE HOY</h2>
+    <h2 class="schedule-title">PARTIDOS DE HOY</h2>
     <div class="matches-scroll">
+      <!-- ...agenda deportiva... -->
       <div class="match-card">
         <p class="time">9:00</p>
         <h3>Camara Onboard Verstappen</h3>
         <p class="league">F1</p>
         <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=disney15')">Mirar</button>
       </div>
+
+
       <div class="match-card">
         <p class="time">9:00</p>
         <h3>Camara Onboard Colapinto</h3>
         <p class="league">F1</p>
         <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=disney14')">Mirar</button>
       </div>
-      <!-- Más partidos aquí -->
-    </div>
-  </div>
 
-  <div class="channels-container">
-    <h2>Elige el canal que quieras ver:</h2>
-    <div class="channels-grid">
-      <div class="channel-card" onclick="abrirF1Stream()">
-        <span>F1</span>
+<div class="match-card">
+        <p class="time">9:00</p>
+        <h3>Camara Onboard General</h3>
+        <p class="league">F1</p>
+        <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=disney16')">Mirar</button>
       </div>
-      <div class="channel-card" onclick="abrirMulticam()">
-        <span>MULTICAM</span>
+
+<div class="match-card">
+        <p class="time">9:00</p>
+        <h3>Clasificacion GP Azerbaiyán (DAZN F1)</h3>
+        <p class="league">F1</p>
+        <button onclick="abrirModal('https://embedsports.top/embed/alpha/fia-formula-1-2025-azerbaijan-f1gp-qualifying/4')">Mirar</button>
       </div>
-      <!-- Más canales aquí, simplemente repite los channel-card cambiando nombres -->
+
+<div class="match-card">
+        <p class="time">9:00</p>
+        <h3>Clasificacion GP Azerbaiyán (Sky Sports)</h3>
+        <p class="league">F1</p>
+        <button onclick="abrirModal('https://embedsports.top/embed/alpha/fia-formula-1-2025-azerbaijan-f1gp-qualifying/2')">Mirar</button>
+      </div>
+
+<div class="match-card">
+        <p class="time">9:00</p>
+        <h3>Clasificacion GP Azerbaiyán (Fox Sports, Menos Deley)</h3>
+        <p class="league">F1</p>
+        <button onclick="abrirModal('https://embedsports.top/embed/alpha/fia-formula-1-2025-azerbaijan-f1gp-qualifying/1')">Mirar</button>
+      </div>
+      
+      </div>
+      
     </div>
   </div>
 </main>
 
-<!-- Modal de video -->
+<!-- Modal fullscreen -->
 <div id="modalPlayer" class="modal">
   <div class="modal-content">
     <span class="close" onclick="cerrarModal()">&times;</span>
@@ -57,38 +184,53 @@
   </div>
 </div>
 
-<!-- Modal Multicam -->
-<div id="multicamModal" class="multicam-modal">
+<div class="channels-container">
+  <h2>Canales</h2>
+  <div class="channels-grid">
+    <button class="channel-btn" onclick="abrirF1Stream()">
+      <img src="assets/f1.png" alt="Canal F1">
+    </button>
+   <div class="channels-container">
+  <!-- Botón Multicam Embellecido -->
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <button id="multicamBtn" class="channel-btn multicam-main-btn" onclick="abrirMulticam()" title="Multicam">
+        <span style="font-size:2rem;">🖥️</span>
+      </button>
+      <span style="font-size:15px;color:#00aaff;font-weight:500;margin-top:3px;">MULTICAM</span>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MULTICAM -->
+<div id="multicamModal" class="multicam-modal" style="display:none;">
   <div class="multicam-content">
-    <button class="multicam-close" onclick="cerrarMulticam()" aria-label="Cerrar Multicam">&times;</button>
-    <h2>MULTICAM</h2>
+    <span class="multicam-close" onclick="cerrarMulticam()">&times;</span>
+    <h2 style="color:#00aaff;margin-bottom:10px;">MULTICAM</h2>
     <div class="multicam-grid" id="multicamGrid">
       <div>
         <iframe id="mc_iframe1" class="multicam-iframe" allowfullscreen></iframe>
-        <div class="multicam-selector-col" id="mc_selector1">
-          <label>Pantalla 1</label>
-        </div>
+        <div class="multicam-selector-col" id="mc_selector1"></div>
       </div>
       <div>
         <iframe id="mc_iframe2" class="multicam-iframe" allowfullscreen></iframe>
-        <div class="multicam-selector-col" id="mc_selector2">
-          <label>Pantalla 2</label>
-        </div>
+        <div class="multicam-selector-col" id="mc_selector2"></div>
       </div>
       <div>
         <iframe id="mc_iframe3" class="multicam-iframe" allowfullscreen></iframe>
-        <div class="multicam-selector-col" id="mc_selector3">
-          <label>Pantalla 3</label>
-        </div>
+        <div class="multicam-selector-col" id="mc_selector3"></div>
       </div>
       <div>
         <iframe id="mc_iframe4" class="multicam-iframe" allowfullscreen></iframe>
-        <div class="multicam-selector-col" id="mc_selector4">
-          <label>Pantalla 4</label>
-        </div>
+        <div class="multicam-selector-col" id="mc_selector4"></div>
       </div>
     </div>
-    <span style="font-size:1.1rem;color:var(--border);margin-top:10px;display:block;text-align:center;">Selecciona el evento para cada pantalla</span>
+    <span style="font-size:13px;color:#00aaff;margin-top:7px;display:block;text-align:center;">Selecciona el evento para cada pantalla</span>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+
   </div>
 </div>
 
@@ -98,24 +240,23 @@
     <button id="dmcaBtn" class="dmca-btn">DMCA</button>
   </p>
 </footer>
-<!-- Modal DMCA -->
+  <!-- Modal DMCA -->
 <div id="dmcaModal" class="dmca-modal">
   <div class="dmca-modal-content">
     <span class="dmca-close" onclick="cerrarDMCAModal()">&times;</span>
     <h3>Aviso DMCA</h3>
     <p>
       Este sitio web no almacena, transmite ni distribuye directamente ningún contenido audiovisual sujeto a derechos de autor.<br><br>
-      Todos los videos, transmisiones en vivo y demás materiales disponibles en esta página provienen de servidores externos de libre acceso en Internet. Nuestra plataforma se limita únicamente a referenciar enlaces públicos.<br><br>
-      No reclamamos ningún tipo de propiedad intelectual sobre el material mostrado ni mantenemos vínculo alguno con los titulares de derechos. Todo el contenido pertenece a sus respectivos autores.<br>
+      Todos los videos, transmisiones en vivo y demás materiales disponibles en esta página provienen de servidores externos de libre acceso en Internet. Nuestra plataforma se limita únicamente a recopilar, organizar y mostrar enlaces o incrustaciones (“embeds”) de dichos contenidos, sin intervenir en su disponibilidad, calidad o legalidad.<br><br>
+      No reclamamos ningún tipo de propiedad intelectual sobre el material mostrado ni mantenemos vínculo alguno con los titulares de derechos. Todo el contenido pertenece a sus respectivos autores, marcas y propietarios registrados.<br><br>
       El sitio tiene un carácter meramente informativo y recreativo, sin fines de lucro.<br><br>
-      Si usted es titular de derechos de autor y considera que algún enlace publicado aquí infringe sus derechos, puede comunicarse con nosotros al correo <b>GolazoTvContacto@proton.me</b>.<br>
+      Si usted es titular de derechos de autor y considera que algún enlace publicado aquí infringe sus derechos, puede comunicarse con nosotros al correo <b>GolazoTvContacto@proton.me</b><br>
       Revisaremos su solicitud y, de ser necesario, retiraremos el contenido correspondiente de manera inmediata.
     </p>
   </div>
 </div>
-
+  
 <script>
-// Modal video
 function abrirModal(url) {
   const playerContainer = document.getElementById('playerContainer');
   playerContainer.innerHTML = '';
@@ -129,31 +270,32 @@ function abrirModal(url) {
   iframe.scrolling = "no";
   playerContainer.appendChild(iframe);
   document.getElementById('modalPlayer').style.display = 'flex';
-  document.body.classList.add('modal-open');
 }
+
 function cerrarModal() {
   document.getElementById('modalPlayer').style.display = 'none';
   document.getElementById('playerContainer').innerHTML = '';
-  document.body.classList.remove('modal-open');
 }
 
-// DMCA Modal
+// DMCA Modal functionality
 document.getElementById('dmcaBtn').onclick = function() {
   document.getElementById('dmcaModal').style.display = 'flex';
-  document.body.classList.add('modal-open');
 }
 function cerrarDMCAModal() {
   document.getElementById('dmcaModal').style.display = 'none';
-  document.body.classList.remove('modal-open');
 }
 
-// Canal F1
+// Nuevo: función para el canal F1
 function abrirF1Stream() {
-  abrirModal('https://hakunamatata5.org/sky-main-event/clean.html');
+  const playerContainer = document.getElementById('playerContainer');
+  playerContainer.innerHTML = `<iframe title="Live" width="100%" height="600" src="https://hakunamatata5.org/sky-main-event/clean.html" frameborder="0" allowfullscreen sandbox="allow-same-origin allow-scripts allow-popups"></iframe>`;
+  document.getElementById('modalPlayer').style.display = 'flex';
 }
+</script>
 
-// Multicam JS (mejorado)
+<script>
 function obtenerPartidosHoy() {
+  // Extrae partidos del DOM para poblar los botones
   const cards = document.querySelectorAll('.match-card');
   const partidos = [];
   cards.forEach(card => {
@@ -168,15 +310,19 @@ function obtenerPartidosHoy() {
   });
   return partidos;
 }
+
 function abrirMulticam() {
   for (let i = 1; i <= 4; i++) {
     document.getElementById('mc_iframe' + i).src = "";
-    const selectorDiv = document.getElementById('mc_selector' + i);
-    selectorDiv.innerHTML = '<label>Pantalla ' + i + '</label>';
+    document.getElementById('mc_selector' + i).innerHTML = "";
   }
   const partidos = obtenerPartidosHoy();
   for (let idx = 1; idx <= 4; idx++) {
     const selectorDiv = document.getElementById('mc_selector' + idx);
+    const label = document.createElement('div');
+    label.style = 'color:#00aaff;font-size:14px;font-weight:500;margin-bottom:2px;';
+    label.innerText = 'Pantalla ' + idx;
+    selectorDiv.appendChild(label);
     partidos.forEach((p) => {
       const btn = document.createElement('button');
       btn.className = 'multicam-event-btn';
@@ -190,13 +336,17 @@ function abrirMulticam() {
     });
   }
   document.getElementById('multicamModal').style.display = 'flex';
-  document.body.classList.add('modal-open');
+  document.body.style.overflow = "hidden";
 }
+
 function cerrarMulticam() {
   document.getElementById('multicamModal').style.display = 'none';
-  for (let i = 1; i <= 4; i++) document.getElementById('mc_iframe' + i).src = "";
-  document.body.classList.remove('modal-open');
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('mc_iframe' + i).src = "";
+  }
+  document.body.style.overflow = "";
 }
 </script>
+
 </body>
 </html>
