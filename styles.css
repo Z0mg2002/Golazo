@@ -1,346 +1,118 @@
-:root {
-  --background: #10131a;
-  --panel-bg: #1a253a;
-  --border: #04befe;
-  --button-bg: #07c8f9;
-  --button-bg-hover: #54f6fa;
-  --button-text: #fff;
-  --button-radius: 18px;
-  --shadow: 0 8px 32px rgba(4,190,254,0.09);
-  --card-glow: 0 0 18px 4px #04befe33;
-}
-
 body {
-  background: var(--background);
-  color: var(--button-text);
-  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #111d2a;
+  color: white;
+  font-family: Arial, sans-serif;
   margin: 0;
 }
 
-/* Header */
 header {
-  background: #16243c;
-  padding: 24px 0 8px 0;
+  background: #0a0a0a;
+  padding: 15px;
   text-align: center;
-  border-bottom: 2px solid var(--border);
 }
 
-.header-actions h1 {
-  font-size: 2.4rem;
-  color: var(--border);
-  margin: 0;
-  letter-spacing: 2px;
-}
-.header-actions a {
-  color: var(--button-bg);
-  font-size: 1.1rem;
-  text-decoration: underline;
-  margin-left: 6px;
-}
-
-/* Panel agenda */
 .schedule-container {
-  margin: 32px auto;
-  background: var(--panel-bg);
-  border-radius: 22px;
-  padding: 28px;
-  max-width: 600px;
-  box-shadow: var(--shadow);
-  border: 2px solid var(--border);
+  margin: 20px;
+  background: #1a1a1a;
+  border-radius: 20px;
+  padding: 15px;
 }
 
 .schedule-title {
   text-align: center;
-  font-size: 2rem;
-  color: var(--border);
-  margin-bottom: 22px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  font-size: 22px;
+  color: #00aaff;
+  margin-bottom: 15px;
 }
 
 .matches-scroll {
-  max-height: 320px;
+  max-height: 70vh; /* ocupa 70% de la pantalla */
   overflow-y: auto;
-  padding-right: 7px;
+  padding-right: 5px;
 }
 
 .match-card {
-  background: #212e49;
-  border-radius: 16px;
-  padding: 18px 14px;
-  margin-bottom: 14px;
+  background: #2a2a2a;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 12px;
   text-align: center;
-  box-shadow: 0 2px 12px rgba(4,190,254,0.09);
-  border: 1px solid #04befe44;
 }
 
 .match-card .time {
-  font-size: 1.2rem;
-  color: var(--border);
-  margin-bottom: 4px;
+  font-size: 16px;
+  color: #00aaff;
+  margin: 0 0 5px;
 }
 
 .match-card h3 {
-  font-size: 1.3rem;
-  margin: 2px 0 4px 0;
-  font-weight: 500;
+  font-size: 18px;
+  margin: 5px 0;
 }
 
 .match-card .league {
-  font-size: 1rem;
-  color: #aee7fa;
-  margin-bottom: 8px;
-}
-
-.match-card button {
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: var(--button-radius);
-  padding: 8px 22px;
-  font-size: 1rem;
-  font-weight: bold;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  margin-top: 6px;
-  transition: background 0.18s;
-}
-.match-card button:hover {
-  background: var(--button-bg-hover);
-  color: #10131a;
-}
-
-/* Selector de canales tipo card */
-.channels-container {
-  margin: 44px auto 0 auto;
-  max-width: 1200px;
-}
-.channels-container h2 {
-  text-align: center;
-  margin-bottom: 24px;
-  color: var(--border);
-  font-size: 2rem;
-}
-
-.channels-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 35px;
-}
-
-/* Card estilo neon */
-.channel-card {
-  width: 110px;
-  height: 110px;
-  background: #161d2b;
-  border-radius: 24px;
-  box-shadow: var(--card-glow);
-  border: 2px solid #04befe33;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: box-shadow 0.22s, border 0.22s, transform 0.14s;
-  position: relative;
-}
-.channel-card:hover {
-  box-shadow: 0 0 35px 8px #07c8f9bb;
-  border-color: #04befe;
-  transform: scale(1.08);
-}
-.channel-card span {
-  color: var(--border);
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-align: center;
-  margin-top: 2px;
-  letter-spacing: 0.5px;
-}
-
-/* Multicam modal y grilla */
-.multicam-modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  left: 0; top: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(8,18,35,0.97);
-  justify-content: center;
-  align-items: center;
-  font-family: inherit;
-  overflow-y: auto;
-}
-
-.multicam-content {
-  background: var(--panel-bg);
-  padding: 32px 18px 22px 18px;
-  border-radius: 22px;
-  max-width: 950px;
-  width: 96vw;
-  box-shadow: var(--shadow);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 2px solid var(--border);
-}
-
-.multicam-close {
-  position: absolute;
-  right: 22px;
-  top: 18px;
-  font-size: 36px;
-  color: var(--border);
-  background: none;
-  border: none;
-  padding: 0 12px;
-  cursor: pointer;
-  border-radius: 50%;
-  transition: color 0.2s, background 0.2s;
-  font-weight: bold;
-  z-index: 20;
-}
-.multicam-close:hover,
-.multicam-close:focus {
-  color: #fff;
-  background: #04befe44;
-  outline: none;
-}
-
-.multicam-content h2 {
-  color: var(--border);
-  margin-bottom: 16px;
-  font-size: 2rem;
-  text-align: center;
-  font-weight: bold;
-}
-
-.multicam-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(280px, 1fr));
-  grid-template-rows: repeat(2, 1fr);
-  gap: 28px;
-  width: 100%;
-  margin-bottom: 20px;
-}
-@media (max-width: 900px) {
-  .multicam-grid { grid-template-columns: 1fr 1fr; gap: 14px;}
-}
-@media (max-width: 650px) {
-  .multicam-grid { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); gap: 12px;}
-}
-
-.multicam-grid > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #222e49;
-  border-radius: 16px;
-  border: 2px solid #04befe55;
-  box-shadow: 0 2px 8px rgba(4,190,254,0.08);
-  min-width: 0;
-  padding: 12px 6px 8px 6px;
-  position: relative;
-}
-
-.multicam-iframe {
-  width: 100%;
-  aspect-ratio: 16/9;
-  min-height: 120px;
-  max-height: 32vh;
-  border-radius: 10px;
-  border: 2px solid var(--border);
-  background: #191f2b;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+  font-size: 14px;
+  color: #aaa;
   margin-bottom: 10px;
 }
 
-.multicam-selector-col {
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  width: 100%;
-  max-height: 140px;
-  overflow-y: auto;
-  padding: 0 4px 32px 4px;
-  position: relative;
-}
-
-.multicam-selector-col label {
-  color: var(--border);
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 2px;
-  text-align: left;
-}
-
-.multicam-event-btn {
-  background: linear-gradient(90deg, var(--button-bg) 0%, #0077cc 100%);
-  color: var(--button-text);
+button {
+  background-color: #00aaff;
   border: none;
-  border-radius: var(--button-radius);
-  padding: 12px 18px;
-  font-size: 1rem;
-  font-weight: 500;
-  text-align: left;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
   cursor: pointer;
-  box-shadow: var(--shadow);
-  transition: background 0.18s, transform 0.14s;
-  outline: none;
-  width: 100%;
-  min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 0;
-  display: flex;
+}
+
+button:hover { background-color: #0088cc; }
+
+/* Modal fullscreen */
+.modal {
+  display: none;
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  justify-content: center;
   align-items: center;
-}
-.multicam-event-btn:hover,
-.multicam-event-btn.active {
-  background: linear-gradient(90deg, var(--button-bg-hover) 60%, #46f6fa 100%);
-  color: #10131a;
-  transform: scale(1.03);
+  background: rgba(0,0,0,0.95);
+  z-index: 1000;
 }
 
-/* Fade effect for selector-col scroll */
-.multicam-selector-col::after {
-  content: "";
+.modal-content {
+  position: relative;
+  width: 90%;
+  height: 80%;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.close {
   position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 24px;
-  pointer-events: none;
-  background: linear-gradient(0deg, #222e49 80%, transparent 100%);
-}
+  top: 5px;
+  right: 10px;
+  font-size: 28px;
+  cursor: pointer;
+  color: white;
+  z-index: 10;
 
-footer {
-  background: #16243c;
-  color: #fff;
-  text-align: center;
-  padding: 22px 0 10px 0;
-  margin-top: 60px;
-  border-top: 2px solid var(--border);
-}
-
+  /* --- Estilos para el botón DMCA y el modal DMCA --- */
 .dmca-btn {
   margin-left: 10px;
-  padding: 5px 18px;
+  padding: 3px 12px;
   border-radius: 16px;
   background: #eaeaea;
   border: 1px solid #bbb;
   color: #222;
-  font-size: 1.1rem;
+  font-size: 14px;
   cursor: pointer;
   transition: background 0.2s, border 0.2s;
 }
+
 .dmca-btn:hover {
   background: #d2d2d2;
-  border-color: var(--border);
-  color: var(--border);
+  border-color: #0088cc;
+  color: #0088cc;
 }
 
 .dmca-modal {
@@ -351,37 +123,203 @@ footer {
   top: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(11,21,37,0.85);
+  background: rgba(0,0,0,0.55);
   justify-content: center;
   align-items: center;
 }
+
 .dmca-modal-content {
-  background: #1a253a;
+  background: #1a1a1a;
   color: #f0f0f0;
-  padding: 28px 20px;
-  border-radius: 15px;
-  max-width: 450px;
-  width: 94vw;
+  padding: 24px 18px;
+  border-radius: 12px;
+  max-width: 430px;
+  width: 90vw;
   box-shadow: 0 4px 28px rgba(0,0,0,0.18);
   position: relative;
-  font-size: 1.1rem;
-  border: 1px solid var(--border);
+  font-size: 15px;
+  line-height: 1.6;
+  border: 1px solid #00aaff;
 }
+
 .dmca-close {
   position: absolute;
-  right: 18px;
-  top: 14px;
-  font-size: 24px;
-  color: #bbb;
+  right: 16px;
+  top: 12px;
+  font-size: 22px;
+  color: #aaa;
   cursor: pointer;
   transition: color 0.2s;
 }
+
 .dmca-close:hover {
-  color: var(--border);
+  color: #00aaff;
 }
+
 .dmca-modal-content h3 {
   margin-top: 0;
   margin-bottom: 10px;
-  font-size: 1.35rem;
-  color: var(--border);
+  font-size: 18px;
+  color: #00aaff;
 }
+}
+
+.video-container {
+  width: 100%;
+  height: 100%;
+}
+
+.multicam-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.92);
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  overflow-y: auto;
+}
+.multicam-content {
+  background: #10131a;
+  padding: 18px 10px 13px 10px;
+  border-radius: 18px;
+  max-width: 98vw;
+  width: 100vw;
+  min-width: 0;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.32);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #00aaff;
+  overflow-x: auto;
+}
+.multicam-close {
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  font-size: 32px;
+  color: #00aaff;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-weight: bold;
+  z-index:10;
+}
+.multicam-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 11px;
+  width: 98vw;
+  max-width: 900px;
+  min-width: 0;
+  margin-bottom: 16px;
+}
+.multicam-grid > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+.multicam-iframe {
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 16/9;
+  max-height: 36vh;
+  min-height: 135px;
+  border-radius: 10px;
+  border: 2px solid #00aaff;
+  background: #191f2b;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+  transition: border 0.2s;
+  margin-bottom: 5px;
+}
+.multicam-selector-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+}
+.multicam-event-btn {
+  background: linear-gradient(90deg,#00aaff 0%,#0077cc 100%);
+  color: #fff;
+  border: none;
+  border-radius: 11px;
+  margin-bottom: 2px;
+  padding: 7px 7px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+  transition: background 0.19s, transform 0.16s;
+  outline: none;
+  width: 100%;
+  min-width: 0;
+}
+.multicam-event-btn:hover, .multicam-event-btn.active {
+  background: linear-gradient(90deg,#00cfff 60%,#46f6fa 100%);
+  color: #222;
+  transform: scale(1.04);
+}
+@media (max-width: 900px) {
+  .multicam-grid { max-width: 100vw; }
+}
+@media (max-width: 700px) {
+  .multicam-content { padding: 5px; }
+  .multicam-iframe { max-height: 27vh; min-height: 90px; }
+  .multicam-grid { gap: 7px; }
+}
+@media (max-width: 600px) {
+  .multicam-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    max-width: 95vw;
+    gap: 6px;
+  }
+  .multicam-iframe { min-height: 74px; }
+}
+/* Ajustar altura y tamaño de botones multicam */
+.multicam-event-btn {
+  background: linear-gradient(90deg,#00aaff 0%,#0077cc 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 3px;
+  padding: 5px 6px;        /* menos alto */
+  font-size: 12px;         /* texto más compacto */
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  transition: background 0.19s, transform 0.16s;
+  outline: none;
+  width: 100%;
+  min-width: 0;
+  white-space: nowrap;     /* que no se corte en varias líneas */
+  overflow: hidden;
+  text-overflow: ellipsis; /* ... si el texto es muy largo */
+}
+
+.multicam-event-btn:hover,
+.multicam-event-btn.active {
+  background: linear-gradient(90deg,#00cfff 60%,#46f6fa 100%);
+  color: #222;
+  transform: scale(1.03);
+}
+
+/* Contenedor de lista de partidos por pantalla */
+.multicam-selector-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  max-height: 150px;  /* límite para que no se estire infinito */
+  overflow-y: auto;   /* scroll si hay muchos partidos */
+  padding-right: 2px;
+}
+
+</script>
