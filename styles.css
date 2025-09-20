@@ -185,11 +185,12 @@ button:hover { background-color: #0088cc; }
   overflow-y: auto;
 }
 
+/* Contenido principal de multicam */
 .multicam-content {
   background: #10131a;
   padding: 18px 10px 13px 10px;
   border-radius: 18px;
-  max-width: 95vw;
+  max-width: 98vw;
   width: 100%;
   box-shadow: 0 8px 48px rgba(0,0,0,0.32);
   position: relative;
@@ -200,18 +201,30 @@ button:hover { background-color: #0088cc; }
   overflow-x: auto;
 }
 
+/* Botón de cerrar (X) siempre visible y fácil de tocar */
 .multicam-close {
   position: absolute;
   right: 18px;
   top: 14px;
   font-size: 32px;
   color: #00aaff;
+  background: none;
+  border: none;
+  padding: 0 8px;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color 0.2s, background 0.2s;
   font-weight: bold;
-  z-index:10;
+  z-index: 10;
+  border-radius: 50%;
+}
+.multicam-close:hover,
+.multicam-close:focus {
+  color: #fff;
+  background: #00aaff44;
+  outline: none;
 }
 
+/* Grilla de pantallas multicam */
 .multicam-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -221,11 +234,9 @@ button:hover { background-color: #0088cc; }
   max-width: 800px;
   margin-bottom: 18px;
 }
-
 @media (max-width: 900px) {
   .multicam-grid { max-width: 98vw; gap: 10px; }
 }
-
 @media (max-width: 600px) {
   .multicam-grid {
     grid-template-columns: 1fr;
@@ -258,7 +269,7 @@ button:hover { background-color: #0088cc; }
   margin-bottom: 5px;
 }
 
-/* Botones de eventos multicam - mejorados */
+/* Selector de eventos con espacio extra abajo para que el último botón nunca se tape */
 .multicam-selector-col {
   display: flex;
   flex-direction: column;
@@ -267,8 +278,10 @@ button:hover { background-color: #0088cc; }
   max-height: 140px;
   overflow-y: auto;
   padding-right: 2px;
+  padding-bottom: 24px; /* Espacio extra para que el último botón NO se tape */
 }
 
+/* Botones de evento multicam */
 .multicam-event-btn {
   background: linear-gradient(90deg,#00aaff 0%,#0077cc 100%);
   color: #fff;
@@ -289,8 +302,8 @@ button:hover { background-color: #0088cc; }
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.multicam-event-btn:hover, .multicam-event-btn.active {
+.multicam-event-btn:hover,
+.multicam-event-btn.active {
   background: linear-gradient(90deg,#00cfff 60%,#46f6fa 100%);
   color: #222;
   transform: scale(1.04);
