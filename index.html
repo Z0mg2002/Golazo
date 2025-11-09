@@ -1,118 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Golazo TV</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="styles.css">
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #0e0e12;
+    color: #e9e9e9;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: #16161b;
+    border-bottom: 1px solid #2a2a2a;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo {
+    height: 46px;
+    border-radius: 6px;
+  }
+  .subtitulo {
+    color: #aaa;
+    font-size: 13px;
+  }
+  .link-ayuda {
+    color: #00aaff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .link-ayuda:hover {
+    text-decoration: underline;
+  }
+
+  main {
+    padding: 20px;
+    max-width: 980px;
+    margin: auto;
+  }
+  .schedule-title {
+    text-align: center;
+    color: #00aaff;
+    margin-bottom: 10px;
+  }
+
+  /* === LISTA DE PARTIDOS === */
+  .matches-scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  .match-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1a1a1f;
+    border-left: 3px solid rgba(0,170,255,0.3);
+    padding: 10px 14px;
+    border-radius: 10px;
+    transition: background 0.2s;
+  }
+  .match-card:hover {
+    background: #22222a;
+  }
+  .match-left {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .match-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .match-time {
+    color: #00aaff;
+    font-weight: bold;
+    width: 70px;
+  }
+  .match-title {
+    color: #fff;
+    font-size: 16px;
+  }
+  .match-league {
+    color: #bdbdbd;
+    font-size: 13px;
+    margin-left: 70px;
+  }
+  .match-btn {
+    background: #00aaff;
+    color: #fff;
+    border: 0;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .match-btn:hover {
+    background: #0092d8;
+  }
+
+  /* === CANALES === */
+  .channels-container {
+    margin-top: 30px;
+    text-align: center;
+  }
+  .channels-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .channel-btn {
+    background: #1a1a1f;
+    border: 1px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .channel-btn:hover {
+    transform: scale(1.05);
+    background: #22222a;
+  }
+  .channel-btn img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+  .multicam-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .multicam-label {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 5px;
+  }
+
+  /* === MODAL PRINCIPAL === */
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .modal-content {
+    width: 90%;
+    max-width: 900px;
+    background: #111;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+  .close {
+    position: absolute;
+    right: 12px;
+    top: 6px;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+  }
+  .video-container {
+    width: 100%;
+    height: 70vh;
+  }
+
+  /* === MULTICAM === */
+  .multicam-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+  }
+  .multicam-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
+    width: 100%;
+    max-width: 1100px;
+  }
+  .multicam-iframe {
+    width: 100%;
+    height: 200px;
+    border: none;
+    border-radius: 8px;
+  }
+  .multicam-selector {
+    margin-top: 6px;
+    text-align: center;
+  }
+  .multicam-event-btn {
+    background: #222;
+    color: #ddd;
+    border: 0;
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin: 2px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .multicam-event-btn:hover {
+    background: #00aaff;
+    color: #fff;
+  }
+  .multicam-event-btn.active {
+    background: #00aaff;
+    color: #fff;
+  }
+  .multicam-close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 26px;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  /* === DMCA === */
+  .dmca-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 1200;
+  }
+  .dmca-modal-content {
+    background: #1a1a1f;
+    color: #ddd;
+    max-width: 800px;
+    padding: 25px;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 80vh;
+  }
+  .dmca-close {
+    float: right;
+    font-size: 26px;
+    cursor: pointer;
+  }
+  .dmca-btn {
+    background: none;
+    border: 1px solid #00aaff;
+    color: #00aaff;
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 14px;
+    color: #aaa;
+    background: #16161b;
+    padding: 14px;
+    border-top: 1px solid #2a2a2a;
+  }
+
+  @media (max-width:700px) {
+    .match-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .match-league {
+      margin-left: 0;
+    }
+    .video-container {
+      height: 55vh;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo-area">
+    <img src="assets/logo.png" alt="Golazo TV" class="logo">
+    <div>
+      <h1>Golazo TV</h1>
+      <small class="subtitulo">Eventos deportivos en vivo</small>
+    </div>
+  </div>
+  <a href="https://github.com/gorhill/uBlock?tab=readme-ov-file#ublock-origin-ubo" target="_blank" class="link-ayuda">Bloquear anuncios</a>
+</header>
+
+<main>
+  <section class="schedule-container">
+    <h2 class="schedule-title">📅 Partidos de Hoy</h2>
+
+    <div class="matches-scroll" id="matchesScroll">
+      <!-- Editá los partidos fácilmente -->
+      <div class="match-card">
+        <div class="match-left">
+          <div class="match-main">
+            <p class="match-time">12:30</p>
+            <h3 class="match-title">River Plate vs Independiente Rdv</h3>
+          </div>
+          <p class="match-league">Copa Argentina</p>
+        </div>
+        <button class="match-btn" onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=tycsports')">Mirar</button>
+      </div>
+
+      <div class="match-card">
+        <div class="match-left">
+          <div class="match-main">
+            <p class="match-time">15:45</p>
+            <h3 class="match-title">Barcelona vs Real Madrid</h3>
+          </div>
+          <p class="match-league">LaLiga</p>
+        </div>
+        <button class="match-btn" onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=espn')">Mirar</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="channels-container">
+    <h2 style="color:#00aaff;">Canales</h2>
+    <div class="channels-grid">
+      <button class="channel-btn" onclick="abrirF1Stream()">
+        <img src="assets/f1.png" alt="F1">
+      </button>
+      <div class="multicam-wrapper">
+        <button class="channel-btn" onclick="abrirMulticam()">🖥️</button>
+        <span class="multicam-label">MULTICAM</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- === MODALES === -->
+<div id="modalPlayer" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <div class="video-container" id="playerContainer"></div>
+  </div>
+</div>
+
+<div id="multicamModal" class="multicam-modal">
+  <span class="multicam-close" onclick="cerrarMulticam()">&times;</span>
+  <h2>🎥 MULTICAM</h2>
+  <div class="multicam-grid" id="multicamGrid">
+    <div><iframe id="mc_iframe1" class="multicam-iframe"></iframe><div id="mc_selector1" class="multicam-selector"></div></div>
+    <div><iframe id="mc_iframe2" class="multicam-iframe"></iframe><div id="mc_selector2" class="multicam-selector"></div></div>
+    <div><iframe id="mc_iframe3" class="multicam-iframe"></iframe><div id="mc_selector3" class="multicam-selector"></div></div>
+    <div><iframe id="mc_iframe4" class="multicam-iframe"></iframe><div id="mc_selector4" class="multicam-selector"></div></div>
+  </div>
+</div>
+
+<div id="dmcaModal" class="dmca-modal">
+  <div class="dmca-modal-content">
+    <span class="dmca-close" onclick="cerrarDMCAModal()">&times;</span>
+    <h3>Aviso DMCA</h3>
+    <p>
+      Este sitio no almacena ni transmite directamente contenido audiovisual sujeto a derechos de autor.<br><br>
+      Todos los enlaces y transmisiones provienen de servidores externos de libre acceso. Golazo TV solo recopila y organiza estos enlaces sin intervenir en su disponibilidad o legalidad.<br><br>
+      Si usted es titular de derechos y desea solicitar la retirada de un enlace, comuníquese con <b>GolazoTvContacto@proton.me</b>
+    </p>
+  </div>
+</div>
+
+<footer>
+  Sin fines de lucro
+  <button id="dmcaBtn" class="dmca-btn">DMCA</button>
+</footer>
+
 <script>
 function abrirModal(url){
-  const m=document.getElementById('modalPlayer');
-  const c=document.getElementById('playerContainer');
-  c.innerHTML='';
-  const f=document.createElement('iframe');
-  f.src=url;
-  f.width='100%';
-  f.height='100%';
-  f.frameBorder='0';
-  f.allowFullscreen=true;
-  f.allow='autoplay; encrypted-media; picture-in-picture';
-  c.appendChild(f);
-  m.style.display='flex';
+  const modal=document.getElementById('modalPlayer');
+  const container=document.getElementById('playerContainer');
+  container.innerHTML='';
+  const iframe=document.createElement('iframe');
+  iframe.src=url;
+  iframe.width='100%';
+  iframe.height='100%';
+  iframe.frameBorder='0';
+  iframe.allow='autoplay; encrypted-media; picture-in-picture';
+  iframe.allowFullscreen=true;
+  container.appendChild(iframe);
+  modal.style.display='flex';
   document.body.style.overflow='hidden';
 }
-
 function cerrarModal(){
   document.getElementById('modalPlayer').style.display='none';
   document.getElementById('playerContainer').innerHTML='';
   document.body.style.overflow='';
 }
-
-document.getElementById('dmcaBtn').addEventListener('click',()=>{
-  document.getElementById('dmcaModal').style.display='flex';
-  document.body.style.overflow='hidden';
-});
-function cerrarDMCAModal(){
-  document.getElementById('dmcaModal').style.display='none';
-  document.body.style.overflow='';
-}
-
-function abrirF1Stream(){
-  abrirModal('https://hakunamatata5.org/sky-main-event/clean.html');
-}
-
-// ✅ Corrección: regex sin dobles barras
+document.getElementById('dmcaBtn').addEventListener('click',()=>{document.getElementById('dmcaModal').style.display='flex';document.body.style.overflow='hidden';});
+function cerrarDMCAModal(){document.getElementById('dmcaModal').style.display='none';document.body.style.overflow='';}
+function abrirF1Stream(){abrirModal('https://hakunamatata5.org/sky-main-event/clean.html');}
 function obtenerPartidosHoy(){
-  const cards=document.querySelectorAll('.match-card');
-  const arr=[];
+  const cards=document.querySelectorAll('.match-card');const arr=[];
   cards.forEach(c=>{
     const n=c.querySelector('.match-title')?.innerText||'';
-    const liga=c.querySelector('.match-league')?.innerText||'';
-    const hora=c.querySelector('.match-time')?.innerText||'';
     const b=c.querySelector('button');
     if(b){
       const m=b.getAttribute('onclick').match(/abrirModal\(['"]([^'"]+)['"]\)/);
-      if(m) arr.push({nombre:n, liga:liga, hora:hora, url:m[1]});
+      if(m)arr.push({nombre:n,url:m[1]});
     }
   });
   return arr;
 }
-
 function abrirMulticam(){
-  const m=document.getElementById('multicamModal');
+  const modal=document.getElementById('multicamModal');
   const partidos=obtenerPartidosHoy();
-
-  // limpiar iframes
   for(let i=1;i<=4;i++){
     document.getElementById('mc_iframe'+i).src='';
     document.getElementById('mc_selector'+i).innerHTML='';
   }
-
   if(partidos.length===0){
-    document.getElementById('mc_selector1').innerHTML=
-      '<div style="color:#ccc;">No hay eventos disponibles.<br>Agrega partidos en "Partidos de Hoy".</div>';
-    m.style.display='flex';
+    document.getElementById('mc_selector1').innerHTML='<div style="color:#ccc;">No hay eventos disponibles.</div>';
+    modal.style.display='flex';
     document.body.style.overflow='hidden';
     return;
   }
-
-  // Generar listas bonitas debajo de cada pantalla
-  for(let i=1;i<=4;i++){
-    const selector=document.getElementById('mc_selector'+i);
-    partidos.forEach(p=>{
-      const item=document.createElement('div');
-      item.className='multicam-item';
-      item.innerHTML=`
-        <div style="color:#00aaff;font-weight:600;font-size:13px;">
-          ${p.hora} — ${p.nombre}
-        </div>
-        <div style="color:#ccc;font-size:11px;margin-bottom:6px;">${p.liga}</div>
-      `;
-      item.style.cursor='pointer';
-      item.onclick=()=>{
+  partidos.forEach(p=>{
+    for(let i=1;i<=4;i++){
+      const sel=document.getElementById('mc_selector'+i);
+      const btn=document.createElement('button');
+      btn.className='multicam-event-btn';
+      btn.textContent=p.nombre;
+      btn.onclick=()=>{
         document.getElementById('mc_iframe'+i).src=p.url;
-        selector.querySelectorAll('.multicam-item').forEach(x=>x.style.background='none');
-        item.style.background='rgba(0,170,255,0.1)';
+        sel.querySelectorAll('.multicam-event-btn').forEach(x=>x.classList.remove('active'));
+        btn.classList.add('active');
       };
-      selector.appendChild(item);
-    });
-  }
-
-  m.style.display='flex';
+      sel.appendChild(btn);
+    }
+  });
+  modal.style.display='flex';
   document.body.style.overflow='hidden';
 }
-
 function cerrarMulticam(){
   document.getElementById('multicamModal').style.display='none';
-  for(let i=1;i<=4;i++)
-    document.getElementById('mc_iframe'+i).src='';
+  for(let i=1;i<=4;i++)document.getElementById('mc_iframe'+i).src='';
   document.body.style.overflow='';
 }
-
 window.addEventListener('click',e=>{
   if(e.target.id==='modalPlayer')cerrarModal();
   if(e.target.id==='multicamModal')cerrarMulticam();
   if(e.target.id==='dmcaModal')cerrarDMCAModal();
 });
-
 window.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){
-    cerrarModal();
-    cerrarMulticam();
-    cerrarDMCAModal();
-  }
+  if(e.key==='Escape'){cerrarModal();cerrarMulticam();cerrarDMCAModal();}
 });
 </script>
+</body>
+</html>
