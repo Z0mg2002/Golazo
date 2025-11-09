@@ -323,6 +323,12 @@
         <button class="channel-btn" onclick="abrirF1Stream()">
           <img src="assets/f1.png" alt="F1">
         </button>
+        <button class="channel-btn" onclick="abrirTYCSportsStream()">
+          <img src="assets/tycsports.png" alt="TYCSports">
+        </button>
+            <button class="channel-btn" onclick="abrirFOXSportsStream()">
+          <img src="assets/foxsports.png" alt="FOXSports">
+        </button>
         <div class="multicam-wrapper">
           <button class="channel-btn" onclick="abrirMulticam()">🖥️</button>
           <span class="multicam-label">MULTICAM</span>
@@ -410,6 +416,15 @@
     function abrirF1Stream() {
       abrirModal('https://hakunamatata5.org/sky-main-event/clean.html');
     }
+
+    function abrirTYCSportsStream() {
+      abrirModal('https://streamtpmedia.com/global1.php?stream=tycsports');
+    }
+
+    function abrirFOXSportsStream() {
+      abrirModal('https://streamtpmedia.com/global1.php?stream=fox1ar');
+    }
+  
 
     function obtenerPartidosHoy() {
       const cards = document.querySelectorAll('.match-card');
