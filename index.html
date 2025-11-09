@@ -141,19 +141,37 @@
   </div>
 </div>
 
-<!-- Modal multicam -->
-<div id="multicamModal" class="multicam-modal">
+<!-- MODAL MULTICAM -->
+<div id="multicamModal" class="multicam-modal" style="display:none;">
   <div class="multicam-content">
     <span class="multicam-close" onclick="cerrarMulticam()">&times;</span>
-    <h2>🎥 MULTICAM</h2>
+    <h2 style="color:#00aaff;margin-bottom:10px;text-align:center;">MULTICAM</h2>
+
     <div class="multicam-grid" id="multicamGrid">
-      <div><iframe id="mc_iframe1" class="multicam-iframe"></iframe><div id="mc_selector1" class="multicam-selector"></div></div>
-      <div><iframe id="mc_iframe2" class="multicam-iframe"></iframe><div id="mc_selector2" class="multicam-selector"></div></div>
-      <div><iframe id="mc_iframe3" class="multicam-iframe"></iframe><div id="mc_selector3" class="multicam-selector"></div></div>
-      <div><iframe id="mc_iframe4" class="multicam-iframe"></iframe><div id="mc_selector4" class="multicam-selector"></div></div>
+      <div>
+        <iframe id="mc_iframe1" class="multicam-iframe" allowfullscreen></iframe>
+        <div class="multicam-selector-col" id="mc_selector1"></div>
+      </div>
+      <div>
+        <iframe id="mc_iframe2" class="multicam-iframe" allowfullscreen></iframe>
+        <div class="multicam-selector-col" id="mc_selector2"></div>
+      </div>
+      <div>
+        <iframe id="mc_iframe3" class="multicam-iframe" allowfullscreen></iframe>
+        <div class="multicam-selector-col" id="mc_selector3"></div>
+      </div>
+      <div>
+        <iframe id="mc_iframe4" class="multicam-iframe" allowfullscreen></iframe>
+        <div class="multicam-selector-col" id="mc_selector4"></div>
+      </div>
     </div>
+
+    <span style="font-size:13px;color:#00aaff;margin-top:10px;display:block;text-align:center;">
+      Selecciona el evento para cada pantalla
+    </span>
   </div>
 </div>
+
 
 <!-- DMCA modal -->
 <div id="dmcaModal" class="dmca-modal">
@@ -202,44 +220,32 @@ function obtenerPartidosHoy(){
   return arr;
 }
 function abrirMulticam() {
-  const m = document.getElementById('multicamModal');
-  const partidos = obtenerPartidosHoy();
-  
-  // Limpiar iframes y selectores previos
-  for (let i = 1; i <= 4; i++) {
-    document.getElementById('mc_iframe' + i).src = '';
-    document.getElementById('mc_selector' + i).innerHTML = '';
-  }
-
-  // Si no hay partidos cargados, mostrar mensaje
-  if (partidos.length === 0) {
-    document.getElementById('mc_selector1').innerHTML =
-      '<div style="color:#ccc;">No hay eventos disponibles.<br>Agrega partidos en "Partidos de Hoy".</div>';
-    m.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
+  const eventos = obtenerPartidosHoy();
+  if (!eventos.length) {
+    alert("No hay eventos disponibles hoy.");
     return;
   }
 
-  
-  partidos.forEach(p => {
-    for (let i = 1; i <= 4; i++) {
-      const sel = document.getElementById('mc_selector' + i);
-      const b = document.createElement('button');
-      b.className = 'multicam-event-btn';
-      b.textContent = p.nombre;
-      b.onclick = () => {
-        document.getElementById('mc_iframe' + i).src = p.url;
-        sel.querySelectorAll('.multicam-event-btn').forEach(x => x.classList.remove('active'));
-        b.classList.add('active');
-      };
-      sel.appendChild(b);
-    }
-  });
+  document.getElementById('multicamModal').style.display = 'flex';
 
-  
-  m.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
+  for (let i = 1; i <= 4; i++) {
+    const selector = document.getElementById(`mc_selector${i}`);
+    selector.innerHTML = ''; // limpiar lista anterior
+
+    eventos.forEach(ev => {
+      const item = document.createElement('div');
+      item.className = 'evento-item';
+      item.innerHTML = `
+        <p style="margin:2px 0;color:#00aaff;font-size:13px;"><b>${ev.nombre}</b></p>
+        <p style="margin:0 0 4px 0;color:#ccc;font-size:11px;">${ev.liga}</p>
+      `;
+      item.style.cursor = 'pointer';
+      item.onclick = () => document.getElementById(`mc_iframe${i}`).src = ev.url;
+      selector.appendChild(item);
+    });
+  }
 }
+
 
 function cerrarMulticam(){document.getElementById('multicamModal').style.display='none';for(let i=1;i<=4;i++)document.getElementById('mc_iframe'+i).src='';document.body.style.overflow='';}
 window.addEventListener('click',e=>{if(e.target.id==='modalPlayer')cerrarModal();if(e.target.id==='multicamModal')cerrarMulticam();if(e.target.id==='dmcaModal')cerrarDMCAModal();});
