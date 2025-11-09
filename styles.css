@@ -1,118 +1,280 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0a0a0a;
-  color: #fff;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
-header {
-  background: #111;
-  text-align: center;
-  padding: 15px;
-  border-bottom: 2px solid #222;
-}
-
-header img {
-  height: 60px;
-}
-
-main {
-  padding: 20px;
-  max-width: 900px;
-  margin: auto;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #ffcc00;
-}
-
-.evento {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #1a1a1a;
-  border-radius: 10px;
-  padding: 12px 15px;
-  margin-bottom: 12px;
-  border: 1px solid #222;
-  flex-wrap: wrap;
-}
-
-.info {
-  flex: 1;
+body {
+  background: #0b0b10;
+  color: #e8e8e8;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.fila {
+/* HEADER */
+.header {
+  text-align: center;
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid #111;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+}
+
+.logo-area {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 12px;
 }
 
-.hora {
-  font-weight: bold;
-  width: 60px;
-  text-align: left;
+.logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
 }
 
-.partido {
-  font-size: 16px;
+.header h1 {
+  font-size: 1.8rem;
+  color: #00aaff;
+  letter-spacing: 1px;
 }
 
-.liga {
-  font-size: 13px;
-  color: #ccc;
-  margin-left: 70px;
+.subtitulo {
+  font-size: 0.95rem;
+  opacity: 0.7;
+  margin-top: 4px;
 }
 
-.boton {
-  background: #ffcc00;
-  color: #000;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 15px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s;
+.link-ayuda {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #00aaff;
+  text-decoration: none;
 }
 
-.boton:hover {
-  background: #ffd633;
+.link-ayuda:hover {
+  text-decoration: underline;
 }
 
-footer {
-  margin-top: 40px;
-  padding: 25px;
-  background: #111;
-  border-top: 2px solid #222;
-  text-align: left;
+/* PARTIDOS */
+.schedule-container {
+  padding: 2rem 1rem;
+  text-align: center;
 }
 
-footer h3 {
-  color: #ffcc00;
+.schedule-title {
+  color: #00aaff;
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.matches-scroll {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+}
+
+.match-card {
+  background: #141418;
+  border-radius: 16px;
+  padding: 1rem;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(0,170,255,0.2);
+}
+
+.match-card h3 {
+  color: #fff;
+  font-size: 1.05rem;
+  margin: 6px 0;
+}
+
+.match-card .time {
+  color: #00aaff;
+  font-weight: 600;
+}
+
+.match-card .league {
+  font-size: 0.9rem;
+  opacity: 0.8;
   margin-bottom: 10px;
 }
 
-footer p {
-  color: #ccc;
-  font-size: 14px;
-  line-height: 1.6;
+.match-card button {
+  background: #00aaff;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
 }
 
+.match-card button:hover {
+  background: #0090dd;
+}
+
+/* CANALES */
+.channels-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.channels-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.channel-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid #00aaff;
+  background: #1a1a1f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.channel-btn img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.channel-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(0,170,255,0.5);
+}
+
+.multicam-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.multicam-label {
+  color: #00aaff;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* MODALES */
+.modal, .dmca-modal, .multicam-modal {
+  display: none;
+  position: fixed;
+  z-index: 9000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content, .dmca-modal-content, .multicam-content {
+  background: #1b1b20;
+  border-radius: 12px;
+  padding: 1rem;
+  max-width: 800px;
+  width: 95%;
+  box-shadow: 0 0 25px rgba(0,0,0,0.5);
+  position: relative;
+  color: #fff;
+}
+
+.close, .dmca-close, .multicam-close {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #aaa;
+  transition: color 0.2s;
+}
+
+.close:hover, .dmca-close:hover, .multicam-close:hover {
+  color: #00aaff;
+}
+
+.video-container {
+  height: 70vh;
+  width: 100%;
+}
+
+.multicam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+}
+
+.multicam-iframe {
+  width: 100%;
+  height: 180px;
+  border: none;
+  border-radius: 10px;
+  background: #000;
+}
+
+.multicam-tip {
+  color: #00aaff;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 1rem;
+  opacity: 0.8;
+  font-size: 0.85rem;
+}
+
+.dmca-btn {
+  margin-left: 10px;
+  padding: 4px 10px;
+  border-radius: 10px;
+  background: #222;
+  border: 1px solid #00aaff;
+  color: #00aaff;
+  cursor: pointer;
+}
+
+.dmca-btn:hover {
+  background: #00aaff;
+  color: #fff;
+}
+
+/* RESPONSIVE */
 @media (max-width: 600px) {
-  .fila {
-    flex-direction: column;
-    align-items: flex-start;
+  .header h1 {
+    font-size: 1.4rem;
   }
-  .liga {
-    margin-left: 0;
+  .match-card {
+    max-width: 100%;
   }
-  .boton {
-    margin-top: 8px;
-    width: 100%;
+  .video-container {
+    height: 50vh;
   }
 }
