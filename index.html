@@ -1,346 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Golazo TV</title>
-<link rel="icon" href="assets/logo.png">
-<link rel="stylesheet" href="styles.css">
-<!-- Pequeño override para asegurar lista vertical compacta si tu styles.css no lo cubre -->
-<style>
-  /* fuerza lista vertical compacta para matches */
-  .matches-scroll {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    max-height: 70vh;
-    overflow-y: auto;
-    padding-right: 6px;
-  }
-  .match-card {
-    width: 100%;
-    max-width: 980px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    background: #121216;
-    border-left: 4px solid rgba(0,170,255,0.12);
-  }
-  .match-card .left {
-    display:flex; flex-direction:column; gap:4px;
-  }
-  .match-card .time { color:#00aaff; font-weight:700; }
-  .match-card h3 { margin:0; font-size:16px; }
-  .match-card .league { margin:0; font-size:13px; color:#bdbdbd; }
-  .match-card button {
-    background:#00aaff;
-    color:#fff;
-    border:0;
-    padding:8px 12px;
-    border-radius:8px;
-    cursor:pointer;
-    white-space:nowrap;
-  }
-  .match-card button:hover { background:#0090d6; }
-
-  /* modal player (asegura que se vea bien) */
-  .modal { display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; }
-  .modal-content { width:95%; max-width:1100px; height:85vh; background:#000; border-radius:12px; position:relative; overflow:hidden; border:2px solid rgba(0,170,255,0.12); }
-  .modal .close { position:absolute; right:12px; top:8px; font-size:26px; color:#fff; cursor:pointer; z-index:10; }
-  .video-container { width:100%; height:100%; }
-
-  /* multicam modal override */
-  .multicam-modal { display:none; position:fixed; inset:0; z-index:2100; background:rgba(0,0,0,0.93); justify-content:center; align-items:center; padding:14px; }
-  .multicam-content { width:100%; max-width:1100px; background:#0f1114; border-radius:12px; padding:12px; border:2px solid #00aaff; color:#fff; }
-  .multicam-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
-  .multicam-iframe { width:100%; aspect-ratio:16/9; border-radius:8px; border:2px solid #0b77b3; background:#000; }
-  .multicam-selector { display:flex; flex-direction:column; gap:6px; margin-top:6px; max-height:140px; overflow:auto; }
-  .multicam-event-btn { background:linear-gradient(90deg,#00aaff,#0077cc); color:#fff; border:0; padding:6px 8px; border-radius:8px; text-align:left; cursor:pointer; font-size:13px; }
-  .multicam-event-btn.active { background:linear-gradient(90deg,#46f6fa,#00cfff); color:#111; transform:scale(1.02); }
-
-  @media (max-width:700px) {
-    .match-card { flex-direction:column; align-items:flex-start; gap:8px; padding:10px; }
-    .multicam-grid { grid-template-columns:1fr; }
-    .modal-content { height:60vh; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GolazoTV</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-  <header class="header">
-    <div class="logo-area">
-      <img src="assets/logo.png" alt="Golazo TV" class="logo" style="width:48px;height:48px;border-radius:8px;">
-      <div style="display:flex;flex-direction:column;align-items:flex-start;">
-        <h1 style="color:#00aaff;margin:0;font-size:20px;">Golazo TV</h1>
-        <small style="color:#bdbdbd">Eventos deportivos en vivo</small>
-      </div>
-    </div>
-    <nav style="margin-left:auto;padding-right:16px;">
-      <a href="https://github.com/gorhill/uBlock?tab=readme-ov-file#ublock-origin-ubo" target="_blank" style="color:#00aaff;text-decoration:none;font-size:14px;">Cómo bloquear anuncios</a>
-    </nav>
+  <header>
+    <img src="assets/logo.png" alt="GolazoTV Logo" />
   </header>
 
   <main>
-    <section class="schedule-container" style="padding:18px 12px;">
-      <h2 class="schedule-title" style="color:#00aaff;margin:0 0 12px 0;">📅 Partidos de Hoy</h2>
+    <h2>Eventos en Vivo</h2>
 
-      <!-- Lista vertical y compacta: uno debajo del otro (events inline en HTML como pediste) -->
-      <div class="matches-scroll" id="matchesScroll">
-
-        <!-- <-- cada match-card está en el index.html, con botón que llama abrirModal(url) -->
-        <div class="match-card">
-          <div class="left">
-            <p class="time">12:30</p>
-            <h3>⚽ River Plate vs Independiente Rdv</h3>
-            <p class="league">Copa Argentina</p>
-          </div>
-          <div class="right">
-            <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=tycsports')">Mirar</button>
-          </div>
+    <div class="evento">
+      <div class="info">
+        <div class="fila">
+          <span class="hora">12:30</span>
+          <span class="partido">River Plate vs Independiente Rdv</span>
         </div>
-
-        <div class="match-card">
-          <div class="left">
-            <p class="time">15:45</p>
-            <h3>⚽ Barcelona vs Real Madrid</h3>
-            <p class="league">LaLiga</p>
-          </div>
-          <div class="right">
-            <button onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=espn')">Mirar</button>
-          </div>
-        </div>
-
-        <!-- podés seguir agregando más match-card aquí, en el HTML -->
+        <span class="liga">Copa Argentina</span>
       </div>
-    </section>
+      <button class="boton">Mirar</button>
+    </div>
 
-    <!-- Canales + Multicam -->
-    <section class="channels-container" style="padding: 8px 12px 28px;">
-      <h2 style="color:#00aaff;margin:0 0 10px 0;">Canales</h2>
-      <div class="channels-grid" style="display:flex;gap:14px;align-items:center;">
-        <button class="channel-btn" onclick="abrirF1Stream()" style="width:64px;height:64px;border-radius:12px;border:2px solid #00aaff;background:#111;color:#fff;">
-          <img src="assets/f1.png" alt="F1" style="width:36px;height:36px;object-fit:contain;">
-        </button>
-
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <button id="multicamBtn" class="channel-btn multicam-main-btn" onclick="abrirMulticam()" title="Multicam" style="width:64px;height:64px;border-radius:12px;border:2px solid #00aaff;background:#111;color:#fff;">
-            🖥️
-          </button>
-          <span style="color:#00aaff;font-size:13px;margin-top:6px;">MULTICAM</span>
+    <div class="evento">
+      <div class="info">
+        <div class="fila">
+          <span class="hora">15:00</span>
+          <span class="partido">Canal F1</span>
         </div>
+        <span class="liga">Multicam</span>
       </div>
-    </section>
+      <button class="boton">Mirar</button>
+    </div>
+
+    <div class="evento">
+      <div class="info">
+        <div class="fila">
+          <span class="hora">18:00</span>
+          <span class="partido">Boca Juniors vs San Lorenzo</span>
+        </div>
+        <span class="liga">Liga Profesional</span>
+      </div>
+      <button class="boton">Mirar</button>
+    </div>
   </main>
 
-  <!-- Modal fullscreen -->
-  <div id="modalPlayer" class="modal" aria-hidden="true" role="dialog">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarModal()" title="Cerrar" style="position:absolute;right:12px;top:8px;font-size:28px;color:#fff;cursor:pointer;">&times;</span>
-      <div class="video-container" id="playerContainer" style="width:100%;height:100%;"></div>
-    </div>
-  </div>
-
-  <!-- MODAL MULTICAM -->
-  <div id="multicamModal" class="multicam-modal" aria-hidden="true" role="dialog">
-    <div class="multicam-content">
-      <span class="multicam-close" onclick="cerrarMulticam()" title="Cerrar" style="position:absolute;right:12px;top:10px;font-size:28px;cursor:pointer;color:#00aaff;">&times;</span>
-      <h2 style="color:#00aaff;margin:6px 0 10px 0;">🎥 MULTICAM</h2>
-
-      <div class="multicam-grid" id="multicamGrid">
-        <div>
-          <iframe id="mc_iframe1" class="multicam-iframe" allowfullscreen></iframe>
-          <div id="mc_selector1" class="multicam-selector"></div>
-        </div>
-        <div>
-          <iframe id="mc_iframe2" class="multicam-iframe" allowfullscreen></iframe>
-          <div id="mc_selector2" class="multicam-selector"></div>
-        </div>
-        <div>
-          <iframe id="mc_iframe3" class="multicam-iframe" allowfullscreen></iframe>
-          <div id="mc_selector3" class="multicam-selector"></div>
-        </div>
-        <div>
-          <iframe id="mc_iframe4" class="multicam-iframe" allowfullscreen></iframe>
-          <div id="mc_selector4" class="multicam-selector"></div>
-        </div>
-      </div>
-
-      <p style="color:#aeefff;font-size:13px;margin-top:6px;text-align:center;">Selecciona el evento para cada pantalla</p>
-    </div>
-  </div>
-
-  <!-- DMCA Modal (igual que antes) -->
-  <div id="dmcaModal" class="dmca-modal" style="display:none;position:fixed;inset:0;z-index:3000;justify-content:center;align-items:center;">
-    <div class="dmca-modal-content" style="background:#1a1a1a;padding:18px;border-radius:10px;border:2px solid #00aaff;max-width:480px;">
-      <span class="dmca-close" onclick="cerrarDMCAModal()" style="position:absolute;right:14px;top:8px;cursor:pointer;color:#aaa;font-size:20px;">&times;</span>
-      <h3 style="color:#00aaff;margin-top:0;">Aviso DMCA</h3>
-      <p style="color:#ddd;font-size:14px;line-height:1.5;">
-        Este sitio web no almacena ni distribuye directamente contenido con derechos de autor. Los enlaces provienen de servidores externos. Contacto: <b>GolazoTvContacto@proton.me</b>
-      </p>
-    </div>
-  </div>
-
-  <footer style="padding:12px;text-align:center;color:#aaa;border-top:1px solid rgba(255,255,255,0.02);">
-    Sin fines de lucro
-    <button id="dmcaBtn" class="dmca-btn" style="margin-left:8px;padding:6px 10px;border-radius:8px;background:#111;border:1px solid #00aaff;color:#00aaff;cursor:pointer;">DMCA</button>
+  <footer>
+    <h3>Aviso DMCA</h3>
+    <p>
+      Este sitio web no almacena, transmite ni distribuye directamente ningún contenido audiovisual sujeto a derechos de autor.<br><br>
+      Todos los videos, transmisiones en vivo y demás materiales disponibles en esta página provienen de servidores externos de libre acceso en Internet. Nuestra plataforma se limita únicamente a recopilar, organizar y mostrar enlaces o incrustaciones (“embeds”) de dichos contenidos, sin intervenir en su disponibilidad, calidad o legalidad.<br><br>
+      No reclamamos ningún tipo de propiedad intelectual sobre el material mostrado ni mantenemos vínculo alguno con los titulares de derechos. Todo el contenido pertenece a sus respectivos autores, marcas y propietarios registrados.<br><br>
+      El sitio tiene un carácter meramente informativo y recreativo, sin fines de lucro.<br><br>
+      Si usted es titular de derechos de autor y considera que algún enlace publicado aquí infringe sus derechos, puede comunicarse con nosotros al correo <b>GolazoTvContacto@proton.me</b>.<br>
+      Revisaremos su solicitud y, de ser necesario, retiraremos el contenido correspondiente de manera inmediata.
+    </p>
   </footer>
-
-  <!-- ======= Aquí va TODO el JavaScript inline (NO scripts.js) ======= -->
-  <script>
-    /* Reproductor modal - crea iframe que reproduzca la URL que pasás */
-    function abrirModal(url) {
-      // url debe ser la URL completa hacia la página/stream (tal como las pones en onclick)
-      const modal = document.getElementById('modalPlayer');
-      const playerContainer = document.getElementById('playerContainer');
-      // limpiar
-      playerContainer.innerHTML = '';
-
-      // crear iframe ancho/alto 100%
-      const iframe = document.createElement('iframe');
-      iframe.src = url;
-      iframe.width = '100%';
-      iframe.height = '100%';
-      iframe.frameBorder = '0';
-      iframe.allowFullscreen = true;
-      // permisos útiles para embeds
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
-      iframe.style.border = '0';
-      iframe.style.width = '100%';
-      iframe.style.height = '100%';
-
-      playerContainer.appendChild(iframe);
-      modal.style.display = 'flex';
-      // evitar scroll del body
-      document.body.style.overflow = 'hidden';
-    }
-
-    function cerrarModal() {
-      const modal = document.getElementById('modalPlayer');
-      const playerContainer = document.getElementById('playerContainer');
-      modal.style.display = 'none';
-      playerContainer.innerHTML = '';
-      document.body.style.overflow = '';
-    }
-
-    // DMCA modal
-    document.getElementById('dmcaBtn').addEventListener('click', function(){ 
-      document.getElementById('dmcaModal').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    });
-    function cerrarDMCAModal(){
-      document.getElementById('dmcaModal').style.display = 'none';
-      document.body.style.overflow = '';
-    }
-
-    // Abrir stream F1 (ejemplo)
-    function abrirF1Stream(){
-      abrirModal('https://hakunamatata5.org/sky-main-event/clean.html');
-    }
-
-    /* --- MULTICAM --- */
-    function obtenerPartidosHoy() {
-      const cards = document.querySelectorAll('.match-card');
-      const partidos = [];
-      cards.forEach(card => {
-        const nombre = card.querySelector('h3')?.innerText || '';
-        const boton = card.querySelector('button');
-        let url = '';
-        if (boton && boton.getAttribute('onclick')) {
-          // buscamos abrirModal('URL')
-          const m = boton.getAttribute('onclick').match(/abrirModal\(['"]([^'"]+)['"]\)/);
-          url = m ? m[1] : '';
-        }
-        if (nombre && url) partidos.push({ nombre, url });
-      });
-      return partidos;
-    }
-
-    function abrirMulticam() {
-      const modal = document.getElementById('multicamModal');
-      const partidos = obtenerPartidosHoy();
-
-      // vaciar selects y iframes
-      for (let i=1;i<=4;i++){
-        const iframe = document.getElementById('mc_iframe'+i);
-        const selector = document.getElementById('mc_selector'+i);
-        if (iframe) iframe.src = '';
-        if (selector) selector.innerHTML = '';
-      }
-
-      // poblar selects de cada pantalla
-      for (let idx=1; idx<=4; idx++){
-        const selectorDiv = document.getElementById('mc_selector'+idx);
-        if (!selectorDiv) continue;
-        const label = document.createElement('div');
-        label.textContent = 'Pantalla ' + idx;
-        label.style.color = '#00aaff';
-        label.style.fontWeight = '600';
-        label.style.marginBottom = '6px';
-        selectorDiv.appendChild(label);
-
-        partidos.forEach(p => {
-          const b = document.createElement('button');
-          b.className = 'multicam-event-btn';
-          b.textContent = p.nombre;
-          b.type = 'button';
-          b.addEventListener('click', function(){
-            const ifr = document.getElementById('mc_iframe'+idx);
-            ifr.src = p.url;
-            // marcar activo
-            selectorDiv.querySelectorAll('.multicam-event-btn').forEach(x => x.classList.remove('active'));
-            b.classList.add('active');
-          });
-          selectorDiv.appendChild(b);
-        });
-
-        // si no hay partidos, mostrar texto
-        if (partidos.length === 0) {
-          const n = document.createElement('div');
-          n.textContent = 'No hay eventos disponibles';
-          n.style.color = '#cfcfcf';
-          selectorDiv.appendChild(n);
-        }
-      }
-
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-
-    function cerrarMulticam(){
-      document.getElementById('multicamModal').style.display = 'none';
-      // limpiar src para pausar contenido
-      for (let i=1;i<=4;i++){
-        const iframe = document.getElementById('mc_iframe'+i);
-        if (iframe) iframe.src = '';
-      }
-      document.body.style.overflow = '';
-    }
-
-    // cerrar al hacer click fuera del contenido
-    window.addEventListener('click', function(e){
-      const modalPlayer = document.getElementById('modalPlayer');
-      const mcModal = document.getElementById('multicamModal');
-      const dmcaModal = document.getElementById('dmcaModal');
-      if (e.target === modalPlayer) cerrarModal();
-      if (e.target === mcModal) cerrarMulticam();
-      if (e.target === dmcaModal) cerrarDMCAModal();
-    });
-
-    // Esc para cerrar modales
-    window.addEventListener('keydown', function(e){
-      if (e.key === 'Escape') {
-        cerrarModal();
-        cerrarMulticam();
-        cerrarDMCAModal();
-      }
-    });
-  </script>
-
-  <!-- analytics opcional (lo dejé porque lo tenías antes) -->
-  <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 </body>
 </html>
