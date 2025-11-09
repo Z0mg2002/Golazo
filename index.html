@@ -1,255 +1,118 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Golazo TV</title>
-<link rel="icon" href="assets/logo.png">
-<link rel="stylesheet" href="styles.css">
-<style>
-  .matches-scroll {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-height: 70vh;
-    overflow-y: auto;
-  }
-  .match-card {
-    width: 100%;
-    max-width: 980px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #121216;
-    padding: 10px 14px;
-    border-radius: 10px;
-    border-left: 3px solid rgba(0,170,255,0.25);
-  }
-  .match-left {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    text-align: left;
-  }
-  .match-main {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .match-time {
-    color: #00aaff;
-    font-weight: 700;
-    width: 70px;
-    text-align: left;
-  }
-  .match-title {
-    color: #fff;
-    font-size: 16px;
-  }
-  .match-league {
-    color: #bdbdbd;
-    font-size: 13px;
-    margin-left: 70px;
-  }
-  .match-btn {
-    background: #00aaff;
-    color: #fff;
-    border: 0;
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  .match-btn:hover { background: #0090d6; }
-
-  /* Multicam alineado */
-  .channels-grid {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  @media (max-width:700px) {
-    .match-card { flex-direction: column; align-items: flex-start; gap: 6px; }
-    .match-league { margin-left: 0; }
-  }
-</style>
-</head>
-<body>
-
-<header class="header">
-  <div class="logo-area">
-    <img src="assets/logo.png" alt="Golazo TV" class="logo">
-    <div>
-      <h1>Golazo TV</h1>
-      <small class="subtitulo">Eventos deportivos en vivo</small>
-    </div>
-  </div>
-  <a href="https://github.com/gorhill/uBlock?tab=readme-ov-file#ublock-origin-ubo" target="_blank" class="link-ayuda">Cómo bloquear anuncios</a>
-</header>
-
-<main>
-  <section class="schedule-container">
-    <h2 class="schedule-title">📅 Partidos de Hoy</h2>
-
-    <div class="matches-scroll" id="matchesScroll">
-      <div class="match-card">
-        <div class="match-left">
-          <div class="match-main">
-            <p class="match-time">12:30</p>
-            <h3 class="match-title">River Plate vs Independiente Rdv</h3>
-          </div>
-          <p class="match-league">Copa Argentina</p>
-        </div>
-        <button class="match-btn" onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=tycsports')">Mirar</button>
-      </div>
-
-      <div class="match-card">
-        <div class="match-left">
-          <div class="match-main">
-            <p class="match-time">15:45</p>
-            <h3 class="match-title">Barcelona vs Real Madrid</h3>
-          </div>
-          <p class="match-league">LaLiga</p>
-        </div>
-        <button class="match-btn" onclick="abrirModal('https://la14hd.com/vivo/canales.php?stream=espn')">Mirar</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="channels-container">
-    <h2 style="color:#00aaff;margin-bottom:10px;">Canales</h2>
-    <div class="channels-grid">
-      <button class="channel-btn" onclick="abrirF1Stream()">
-        <img src="assets/f1.png" alt="F1">
-      </button>
-      <div class="multicam-wrapper">
-        <button class="channel-btn" onclick="abrirMulticam()">🖥️</button>
-        <span class="multicam-label">MULTICAM</span>
-      </div>
-    </div>
-  </section>
-</main>
-
-<!-- Modal fullscreen -->
-<div id="modalPlayer" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="cerrarModal()">&times;</span>
-    <div class="video-container" id="playerContainer"></div>
-  </div>
-</div>
-
-<!-- MODAL MULTICAM -->
-<div id="multicamModal" class="multicam-modal" style="display:none;">
-  <div class="multicam-content">
-    <span class="multicam-close" onclick="cerrarMulticam()">&times;</span>
-    <h2 style="color:#00aaff;margin-bottom:10px;text-align:center;">MULTICAM</h2>
-
-    <div class="multicam-grid" id="multicamGrid">
-      <div>
-        <iframe id="mc_iframe1" class="multicam-iframe" allowfullscreen></iframe>
-        <div class="multicam-selector-col" id="mc_selector1"></div>
-      </div>
-      <div>
-        <iframe id="mc_iframe2" class="multicam-iframe" allowfullscreen></iframe>
-        <div class="multicam-selector-col" id="mc_selector2"></div>
-      </div>
-      <div>
-        <iframe id="mc_iframe3" class="multicam-iframe" allowfullscreen></iframe>
-        <div class="multicam-selector-col" id="mc_selector3"></div>
-      </div>
-      <div>
-        <iframe id="mc_iframe4" class="multicam-iframe" allowfullscreen></iframe>
-        <div class="multicam-selector-col" id="mc_selector4"></div>
-      </div>
-    </div>
-
-    <span style="font-size:13px;color:#00aaff;margin-top:10px;display:block;text-align:center;">
-      Selecciona el evento para cada pantalla
-    </span>
-  </div>
-</div>
-
-
-<!-- DMCA modal -->
-<div id="dmcaModal" class="dmca-modal">
-  <div class="dmca-modal-content">
-    <span class="dmca-close" onclick="cerrarDMCAModal()">&times;</span>
-    <h3>Aviso DMCA</h3>
-    <p>
-      Este sitio web no almacena, transmite ni distribuye directamente ningún contenido audiovisual sujeto a derechos de autor.<br><br>
-      Todos los videos, transmisiones en vivo y demás materiales disponibles en esta página provienen de servidores externos de libre acceso en Internet. Nuestra plataforma se limita únicamente a recopilar, organizar y mostrar enlaces o incrustaciones (“embeds”) de dichos contenidos, sin intervenir en su disponibilidad, calidad o legalidad.<br><br>
-      No reclamamos ningún tipo de propiedad intelectual sobre el material mostrado ni mantenemos vínculo alguno con los titulares de derechos. Todo el contenido pertenece a sus respectivos autores, marcas y propietarios registrados.<br><br>
-      El sitio tiene un carácter meramente informativo y recreativo, sin fines de lucro.<br><br>
-      Si usted es titular de derechos de autor y considera que algún enlace publicado aquí infringe sus derechos, puede comunicarse con nosotros al correo <b>GolazoTvContacto@proton.me</b><br>
-      Revisaremos su solicitud y, de ser necesario, retiraremos el contenido correspondiente de manera inmediata.
-    </p>
-  </div>
-</div>
-
-<footer>
-  Sin fines de lucro
-  <button id="dmcaBtn" class="dmca-btn">DMCA</button>
-</footer>
-
 <script>
 function abrirModal(url){
   const m=document.getElementById('modalPlayer');
   const c=document.getElementById('playerContainer');
   c.innerHTML='';
   const f=document.createElement('iframe');
-  f.src=url;f.width='100%';f.height='100%';f.frameBorder='0';f.allowFullscreen=true;
+  f.src=url;
+  f.width='100%';
+  f.height='100%';
+  f.frameBorder='0';
+  f.allowFullscreen=true;
   f.allow='autoplay; encrypted-media; picture-in-picture';
   c.appendChild(f);
   m.style.display='flex';
   document.body.style.overflow='hidden';
 }
+
 function cerrarModal(){
   document.getElementById('modalPlayer').style.display='none';
   document.getElementById('playerContainer').innerHTML='';
   document.body.style.overflow='';
 }
-document.getElementById('dmcaBtn').addEventListener('click',()=>{document.getElementById('dmcaModal').style.display='flex';document.body.style.overflow='hidden';});
-function cerrarDMCAModal(){document.getElementById('dmcaModal').style.display='none';document.body.style.overflow='';}
-function abrirF1Stream(){abrirModal('https://hakunamatata5.org/sky-main-event/clean.html');}
+
+document.getElementById('dmcaBtn').addEventListener('click',()=>{
+  document.getElementById('dmcaModal').style.display='flex';
+  document.body.style.overflow='hidden';
+});
+function cerrarDMCAModal(){
+  document.getElementById('dmcaModal').style.display='none';
+  document.body.style.overflow='';
+}
+
+function abrirF1Stream(){
+  abrirModal('https://hakunamatata5.org/sky-main-event/clean.html');
+}
+
+// ✅ Corrección: regex sin dobles barras
 function obtenerPartidosHoy(){
-  const cards=document.querySelectorAll('.match-card');const arr=[];
-  cards.forEach(c=>{const n=c.querySelector('.match-title')?.innerText||'';const b=c.querySelector('button');if(b){const m=b.getAttribute('onclick').match(/abrirModal\\(['"]([^'"]+)['"]\\)/);if(m)arr.push({nombre:n,url:m[1]});}});
+  const cards=document.querySelectorAll('.match-card');
+  const arr=[];
+  cards.forEach(c=>{
+    const n=c.querySelector('.match-title')?.innerText||'';
+    const liga=c.querySelector('.match-league')?.innerText||'';
+    const hora=c.querySelector('.match-time')?.innerText||'';
+    const b=c.querySelector('button');
+    if(b){
+      const m=b.getAttribute('onclick').match(/abrirModal\(['"]([^'"]+)['"]\)/);
+      if(m) arr.push({nombre:n, liga:liga, hora:hora, url:m[1]});
+    }
+  });
   return arr;
 }
-function abrirMulticam() {
-  const eventos = obtenerPartidosHoy();
-  if (!eventos.length) {
-    alert("No hay eventos disponibles hoy.");
+
+function abrirMulticam(){
+  const m=document.getElementById('multicamModal');
+  const partidos=obtenerPartidosHoy();
+
+  // limpiar iframes
+  for(let i=1;i<=4;i++){
+    document.getElementById('mc_iframe'+i).src='';
+    document.getElementById('mc_selector'+i).innerHTML='';
+  }
+
+  if(partidos.length===0){
+    document.getElementById('mc_selector1').innerHTML=
+      '<div style="color:#ccc;">No hay eventos disponibles.<br>Agrega partidos en "Partidos de Hoy".</div>';
+    m.style.display='flex';
+    document.body.style.overflow='hidden';
     return;
   }
 
-  document.getElementById('multicamModal').style.display = 'flex';
-
-  for (let i = 1; i <= 4; i++) {
-    const selector = document.getElementById(`mc_selector${i}`);
-    selector.innerHTML = ''; // limpiar lista anterior
-
-    eventos.forEach(ev => {
-      const item = document.createElement('div');
-      item.className = 'evento-item';
-      item.innerHTML = `
-        <p style="margin:2px 0;color:#00aaff;font-size:13px;"><b>${ev.nombre}</b></p>
-        <p style="margin:0 0 4px 0;color:#ccc;font-size:11px;">${ev.liga}</p>
+  // Generar listas bonitas debajo de cada pantalla
+  for(let i=1;i<=4;i++){
+    const selector=document.getElementById('mc_selector'+i);
+    partidos.forEach(p=>{
+      const item=document.createElement('div');
+      item.className='multicam-item';
+      item.innerHTML=`
+        <div style="color:#00aaff;font-weight:600;font-size:13px;">
+          ${p.hora} — ${p.nombre}
+        </div>
+        <div style="color:#ccc;font-size:11px;margin-bottom:6px;">${p.liga}</div>
       `;
-      item.style.cursor = 'pointer';
-      item.onclick = () => document.getElementById(`mc_iframe${i}`).src = ev.url;
+      item.style.cursor='pointer';
+      item.onclick=()=>{
+        document.getElementById('mc_iframe'+i).src=p.url;
+        selector.querySelectorAll('.multicam-item').forEach(x=>x.style.background='none');
+        item.style.background='rgba(0,170,255,0.1)';
+      };
       selector.appendChild(item);
     });
   }
+
+  m.style.display='flex';
+  document.body.style.overflow='hidden';
 }
 
+function cerrarMulticam(){
+  document.getElementById('multicamModal').style.display='none';
+  for(let i=1;i<=4;i++)
+    document.getElementById('mc_iframe'+i).src='';
+  document.body.style.overflow='';
+}
 
-function cerrarMulticam(){document.getElementById('multicamModal').style.display='none';for(let i=1;i<=4;i++)document.getElementById('mc_iframe'+i).src='';document.body.style.overflow='';}
-window.addEventListener('click',e=>{if(e.target.id==='modalPlayer')cerrarModal();if(e.target.id==='multicamModal')cerrarMulticam();if(e.target.id==='dmcaModal')cerrarDMCAModal();});
-window.addEventListener('keydown',e=>{if(e.key==='Escape'){cerrarModal();cerrarMulticam();cerrarDMCAModal();}});
+window.addEventListener('click',e=>{
+  if(e.target.id==='modalPlayer')cerrarModal();
+  if(e.target.id==='multicamModal')cerrarMulticam();
+  if(e.target.id==='dmcaModal')cerrarDMCAModal();
+});
+
+window.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    cerrarModal();
+    cerrarMulticam();
+    cerrarDMCAModal();
+  }
+});
 </script>
-</body>
-</html>
