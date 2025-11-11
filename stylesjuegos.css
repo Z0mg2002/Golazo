@@ -1,4 +1,4 @@
-
+/* ====== ESTILOS EXCLUSIVOS PARA JUEGOS ====== */
 
 body {
   background: #0a0a0c;
@@ -6,103 +6,192 @@ body {
   font-family: 'Segoe UI', Roboto, sans-serif;
   margin: 0;
   padding: 0;
-  text-align: center;
 }
 
-
+/* ====== HEADER ====== */
 .header-juegos {
   background: #121216;
   border-bottom: 2px solid #00aaff33;
-  padding: 14px 20px;
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.header-juegos h1 {
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 42px;
+  height: 42px;
+}
+
+.subtitulo {
+  color: #999;
+  font-size: 12px;
+}
+
+.link-ayuda {
   color: #00aaff;
-  margin: 0;
-  font-size: 22px;
+  font-size: 13px;
+  margin-left: 10px;
+  text-decoration: none;
 }
 
-.header-juegos p {
+.link-ayuda:hover {
+  text-decoration: underline;
+}
+
+.nav-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.nav-links a {
+  color: #ccc;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #00aaff;
+}
+
+/* ====== CONTENIDO ====== */
+.titulo-principal {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.subtitulo-principal {
+  text-align: center;
   color: #aaa;
-  font-size: 14px;
-  margin-top: 5px;
+  margin-bottom: 30px;
 }
 
-
+/* ====== GRID DE JUEGOS ====== */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 20px;
-  margin: 30px auto;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
   max-width: 1000px;
+  margin: 0 auto 60px;
   padding: 10px;
 }
 
 .game-card {
   background: #121216;
   border: 1px solid #00aaff33;
-  border-radius: 10px;
+  border-radius: 12px;
   text-decoration: none;
   color: #fff;
-  padding: 10px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .game-card img {
   width: 100%;
+  aspect-ratio: 2/3; /* Mantiene proporción 600x900 */
   border-radius: 8px;
   margin-bottom: 10px;
-  max-height: 280px;
   object-fit: cover;
 }
 
 .game-card h3 {
   font-size: 15px;
-  color: #fff;
-  margin: 0;
   text-align: center;
+  color: #fff;
 }
 
 .game-card:hover {
   border-color: #00aaff;
   transform: translateY(-3px);
-  box-shadow: 0 0 10px #00aaff33;
+  box-shadow: 0 0 12px #00aaff44;
 }
 
-
-.dmca-juegos {
-  background: #0a0a0c;
-  border-top: 1px solid #00aaff33;
-  padding: 30px 20px;
-  color: #aaa;
-  font-size: 14px;
-  line-height: 1.6;
+/* ====== DMCA ====== */
+.dmca-section {
   text-align: center;
-  margin-top: 40px;
+  margin-bottom: 30px;
 }
 
-.dmca-juegos a {
+.dmca-btn {
+  background: #00aaff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.dmca-btn:hover {
+  background: #0090dd;
+}
+
+/* ====== MODAL DMCA ====== */
+.dmca-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.dmca-content {
+  background: #121216;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 500px;
+  text-align: center;
+  border: 1px solid #00aaff44;
+}
+
+.dmca-content h3 {
+  color: #00aaff;
+  margin-bottom: 10px;
+}
+
+.dmca-content a {
   color: #00aaff;
   text-decoration: none;
 }
 
-.dmca-juegos a:hover {
+.dmca-content a:hover {
   text-decoration: underline;
 }
 
-
-::-webkit-scrollbar {
-  width: 8px;
+.cerrar-dmca {
+  margin-top: 20px;
+  background: #222;
+  border: 1px solid #00aaff55;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #00aaff55;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
+.cerrar-dmca:hover {
   background: #00aaff;
+  border-color: #00aaff;
+}
+
+/* ====== FOOTER ====== */
+.footer {
+  color: #777;
+  text-align: center;
+  padding: 25px 10px;
+  border-top: 1px solid #00aaff22;
 }
