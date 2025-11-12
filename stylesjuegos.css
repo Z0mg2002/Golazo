@@ -1,198 +1,122 @@
-/* ====== ESTILOS EXCLUSIVOS PARA JUEGOS ====== */
-
+/* 🎮 Estilos exclusivos para juegos.html */
 body {
-  background: #0a0a0c;
+  background-color: #0a0a0a;
   color: #fff;
-  font-family: 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* ====== HEADER ====== */
-.header-juegos {
-  background: #121216;
-  border-bottom: 2px solid #00aaff33;
-  padding: 12px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
 }
 
-.logo-area {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo {
-  width: 42px;
-  height: 42px;
-}
-
-.subtitulo {
-  color: #999;
-  font-size: 12px;
-}
-
-.link-ayuda {
-  color: #00aaff;
-  font-size: 13px;
-  margin-left: 10px;
-  text-decoration: none;
-}
-
-.link-ayuda:hover {
-  text-decoration: underline;
-}
-
-.nav-links {
-  display: flex;
-  gap: 16px;
-  margin-top: 10px;
-}
-
-.nav-links a {
-  color: #ccc;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: #00aaff;
-}
-
-/* ====== CONTENIDO ====== */
-.titulo-principal {
+/* Título principal */
+h1 {
   text-align: center;
-  margin-top: 25px;
-}
-
-.subtitulo-principal {
-  text-align: center;
-  color: #aaa;
+  font-size: 2rem;
   margin-bottom: 30px;
 }
 
-/* ====== GRID DE JUEGOS ====== */
+/* Grilla de juegos */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* más compacta */
-  gap: 20px;
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  justify-items: center;
 }
 
+/* Tarjetas de juegos */
 .game-card {
-  background: #121216;
-  border: 1px solid #00aaff33;
-  border-radius: 10px;
+  background: #1a1a1a;
+  border-radius: 12px;
   text-decoration: none;
   color: #fff;
-  padding: 8px;
-  transition: all 0.25s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.game-card img {
-  width: 100%;
-  height: 240px; /* tamaño reducido */
-  border-radius: 8px;
-  object-fit: cover;
-  margin-bottom: 8px;
-}
-
-.game-card h3 {
-  font-size: 14px;
-  text-align: center;
-  margin: 0;
-  color: #ddd;
+  overflow: hidden;
+  width: 250px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .game-card:hover {
-  border-color: #00aaff;
-  transform: translateY(-3px);
-  box-shadow: 0 0 10px #00aaff55;
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px #00aaff88;
 }
 
-/* ====== DMCA ====== */
-.dmca-section {
+/* Imagen del juego */
+.game-card img {
+  width: 100%;
+  height: 360px;
+  object-fit: contain; /* muestra la imagen completa */
+  background-color: #000;
+}
+
+/* Título del juego */
+.game-card h3 {
+  font-size: 1rem;
+  padding: 10px;
   text-align: center;
-  margin-bottom: 30px;
+  background-color: #111;
+  border-top: 1px solid #00aaff33;
 }
 
-.dmca-btn {
-  background: #00aaff;
-  color: #fff;
-  border: none;
+/* Botón DMCA */
+.dmca-button {
+  display: block;
+  margin: 40px auto;
   padding: 10px 20px;
+  background-color: transparent;
+  color: #00aaff;
+  border: 1px solid #00aaff;
   border-radius: 8px;
-  cursor: pointer;
+  font-size: 14px;
   text-decoration: none;
-  font-weight: bold;
-}
-
-.dmca-btn:hover {
-  background: #0090dd;
-}
-
-/* ====== MODAL DMCA ====== */
-.dmca-modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.dmca-content {
-  background: #121216;
-  padding: 30px;
-  border-radius: 12px;
-  max-width: 500px;
   text-align: center;
-  border: 1px solid #00aaff44;
+  transition: all 0.3s ease;
+  width: fit-content;
 }
 
-.dmca-content h3 {
-  color: #00aaff;
-  margin-bottom: 10px;
-}
-
-.dmca-content a {
-  color: #00aaff;
-  text-decoration: none;
-}
-
-.dmca-content a:hover {
-  text-decoration: underline;
-}
-
-.cerrar-dmca {
-  margin-top: 20px;
-  background: #222;
-  border: 1px solid #00aaff55;
+.dmca-button:hover {
+  background-color: #00aaff;
   color: #fff;
-  padding: 8px 18px;
+}
+
+/* Paginación */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 10px;
+}
+
+.pagination a {
+  padding: 6px 12px;
+  background-color: #1a1a1a;
+  border: 1px solid #00aaff;
   border-radius: 6px;
-  cursor: pointer;
+  color: #00aaff;
+  text-decoration: none;
+  transition: 0.3s;
 }
 
-.cerrar-dmca:hover {
-  background: #00aaff;
-  border-color: #00aaff;
+.pagination a:hover {
+  background-color: #00aaff;
+  color: #fff;
 }
 
-/* ====== FOOTER ====== */
-.footer {
-  color: #777;
-  text-align: center;
-  padding: 25px 10px;
-  border-top: 1px solid #00aaff22;
+/* Responsive */
+@media (max-width: 600px) {
+  .game-card {
+    width: 180px;
+  }
+
+  .game-card img {
+    height: 260px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
 }
